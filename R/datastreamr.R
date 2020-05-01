@@ -3,9 +3,6 @@
 # Author: Patrick J. LeClair 2020-05-01
 ###############################################################################
 
-# library('httr')       # for access to the HTTP header
-# library('jsonlite')   # for parsing data types from the DataStreamAPI
-
 #' Pulls information from the Observations endpoint
 #'
 #' \code{ds_observations} Takes in different API request criteria such as row selections and filters
@@ -195,7 +192,7 @@ get_data <- function(url, api_token) {
         stop("502: Bad Gateway. Please ensure that your path is correct")
     } else if (response$status_code == 403) {
         stop("403: Forbidden. Please ensure that your api token is correct")
-    } else if (response$status_code == 400){
+    } else if (response$status_code == 400) {
       stop(response)
     } else if (response$status_code == 200) {
         data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
@@ -223,7 +220,7 @@ get_all_data <- function(url, api_token) {
             stop("502: Bad Gateway. Please ensure that your path is correct")
         } else if (response$status_code == 403) {
             stop("403: Forbidden. Please ensure that your api token is correct")
-        } else if (response$status_code == 400){
+        } else if (response$status_code == 400) {
           stop(response)
         } else if (response$status_code == 200) {
             data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
