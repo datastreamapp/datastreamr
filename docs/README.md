@@ -1,13 +1,12 @@
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/gordonfn/datastreamr/master/docs/images/datastream.svg?sanitize=true" alt="DataStream Logo" width="400">
   <br/>
-  dataStreamr Package
+  DataStream R Package
   <br/>
   <br/>
 </h1>
 
-# A tool for downloading DataStream data
------------------------------------------------------
+**A tool for downloading DataStream data**
 
 Provided with a selection of queries, the following functions call to the DataStream Public API and return a dataframe with the desired information. 
 
