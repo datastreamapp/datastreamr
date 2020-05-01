@@ -19,7 +19,7 @@
 #' If count = TRUE, returns a numeric string.
 #'
 #' For information on allowable columns for each parameter please review the README at
-#' \url{https://github.com/gordonfn/datastream-api-public/blob/release/v1.x/docs/APIDOCS.md}
+#' \url{https://github.com/gordonfn/datastreamr}
 #'
 #' @examples
 #' ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
@@ -76,7 +76,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
 #' If count = TRUE, returns a numeric string.
 #'
 #' For information on allowable columns for each parameter please review the README at
-#' \url{https://github.com/gordonfn/datastream-api-public/blob/release/v1.x/docs/APIDOCS.md}
+#' \url{https://github.com/gordonfn/datastreamr}
 #'
 #' @examples
 #' ds_locations("HJ6GY8H",select=c("Id","Name"), filter=c("CharacteristicName = pH",
@@ -133,7 +133,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
 #' If count = TRUE, returns a numeric string.
 #'
 #' For information on allowable columns for each parameter please review the README at
-#' \url{https://github.com/gordonfn/datastream-api-public/blob/release/v1.x/docs/APIDOCS.md}
+#' \url{https://github.com/gordonfn/datastreamr}
 #'
 #' @examples
 #' ds_metadata("HJ6GY8H",select=c("Id","DataCollectionOrganization"), filter=c("CharacteristicName = pH",

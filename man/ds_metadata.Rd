@@ -31,7 +31,7 @@ If count = FALSE, then returns a dataframe with requested columns.
 If count = TRUE, returns a numeric string.
 
 For information on allowable columns for each parameter please review the README at
-\url{https://github.com/gordonfn/datastream-api-public/blob/release/v1.x/docs/APIDOCS.md}
+\url{https://github.com/gordonfn/datastreamr}
 }
 \description{
 \code{ds_metadata} Takes in different API request criteria such as row selections and filters
