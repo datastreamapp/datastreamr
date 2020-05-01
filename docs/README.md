@@ -16,7 +16,7 @@ To install the most recent beta in R:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("Chicago/RSocrata")
+devtools::install_github("gordonfn/datastreamr")
 ```
 
 ## Allowed Values
