@@ -1,16 +1,29 @@
 Package: datastreamr
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: An R Wrapper for DataStream's Public API
+Version: 1.0.0
+Date: 2020-05-01
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Patrick",
+           family = "LeClair",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "patrick@gordonfn.org",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+URL: https://github.com/gordonfn/datastreamr
+BugReports: https://github.com/gordonfn/datastreamr/issues 
+Description: This package allows for users familiar with R to call DataStream's public API
+    directly through functions in R. This provides a more streamlined and easy approach to 
+    getting data from DataStream.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Depends: R(>= 4.0.0)
+Imports:
+    httr(>= 1.4.1),
+    jsonlite(>= 1.6.1)
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr

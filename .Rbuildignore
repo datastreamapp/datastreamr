@@ -1,2 +1,8 @@
-^datastreamr\.Rproj$
+\.gitignore
+\.Rbuildignore
+.*\.tar\.gz
+\.Rbuildignore.Rcheck
+datastreamr.Rcheck
+^.*\.Rproj$
 ^\.Rproj\.user$
+\.Rhistory
