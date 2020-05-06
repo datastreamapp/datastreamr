@@ -193,7 +193,7 @@ get_data <- function(url, api_token) {
     } else if (response$status_code == 403) {
         stop("403: Forbidden. Please ensure that your api token is correct")
     } else if (response$status_code == 400) {
-      stop(response)
+      stop("400: Please contact an admin or post an issue on GitHub")
     } else if (response$status_code == 200) {
         data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
     }
