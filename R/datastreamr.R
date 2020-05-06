@@ -193,7 +193,7 @@ get_data <- function(url, api_token) {
     } else if (response$status_code == 403) {
         stop("403: Forbidden. Please ensure that your api token is correct")
     } else if (response$status_code == 400) {
-      stop("400: Please contact an admin or post an issue on GitHub")
+      stop("400: Bad Request. Please ensure that proper filters and selects are being passed")
     } else if (response$status_code == 200) {
         data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
     }
@@ -221,7 +221,7 @@ get_all_data <- function(url, api_token) {
         } else if (response$status_code == 403) {
             stop("403: Forbidden. Please ensure that your api token is correct")
         } else if (response$status_code == 400) {
-          stop(response)
+            stop("400: Bad Request. Please ensure that proper filters and selects are being passed")
         } else if (response$status_code == 200) {
             data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
             obs <- rbind(obs, data)
