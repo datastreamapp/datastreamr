@@ -22,17 +22,19 @@ devtools::install_github("gordonfn/datastreamr")
 The allowed values for the functions are:
 
 - **ds_metadata**
-  - Select: `Id`, `Name`, `Abstract`, `Citation`, `DataStewardEmail`, `DataCollectionOrganization`, `DataCollectionInformation`, `DataProcessing`, `DataUploadOrganization`, `DataSources`, `FundingSources`, `License`, `Disclaimer`, `Doi`, `Iso`, `Keywords`, `VerifyTimestamp`, `ApproveTimestamp`, `Filesize`, `Version`, `CreateTimestamp`, `ProgramName`
-  - Filter: `Id`, `Name`, `CreateTimestamp`, `CharacteristicName`, `GeometryId`
-  - Orderby: `Name`, `CreateTimestamp`
+  - Select:  `Id`, `Name`, `Abstract`, `Citation`, `DataStewardEmail`, `DataCollectionOrganization`, `DataCollectionInformation`, `DataProcessing`, `DataUploadOrganization`, `DataSources`, `FundingSources`, `License`, `Disclaimer`, `Doi`, `TopicCategories`, `Keywords`, `Version`, `CreateTimestamp`
+  - Filter: `Id`, `Name`, `CreateTimestamp`, `RegionId`
+  - Orderby:`Name`, `CreateTimestamp`
 - **ds_locations**
-  - Select: `Id`, `Name`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`,   `Type`,`Waterbody`
-  - Filter: `Id`, `Name`, `CharacteristicName`, `GeometryId`
+  - Select: `Id`, `NameId`, `Name`,  `Type`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`, `LatitudeNormalized`*, `LongitudeNormalized`*`
+  - Filter: `Id`, `Name`, `CharacteristicName`, `RegionId`
   - Orderby: `Name`
+  
+    \* Normalized coordinates are in `WGS84` projection.
 - **ds_observations**
-  - Select: `Id`, `DatasetId`, `LocationId`, `ActivityType`, `ActivityMediaName`, `ActivityStartTimestamp`, `ActivityEndTimestamp`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartTimestamp`, `LaboratoryName`, `LaboratorySampleId`
-  - Filter: `DatasetId`, `LocationId`, `ActivityStartTimestamp`, `ActivityType`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `GeometryId`
-  - Orderby: `ActivityStartTimestamp`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`
+  - Select:`Id`, `DatasetId`, `LocationId`, `ActivityType`, `ActivityMediaName`, `ActivityMediaSubdivisionName`, `ActivityStartTimestamp`, `ActivityEndTimestamp`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartTimestamp`, `LaboratoryName`, `LaboratorySampleId`, `ActivityDepthHeightMeasureNormalized`, `ActivityDepthHeightUnitNormalized`, `ResultValueNormalized`, `ResultUnitNormalized`, `ResultDetectionQuantitationLimitMeasureNormalized`, `ResultDetectionQuantitationLimitUnitNormalized`
+  - Filter:`DatasetId`, `LocationId`, `ActivityStartDate`, `ActivityStartTime`, `ActivityType`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `RegionId`
+  - Orderby: `ActivityStartDate`, `ActivityStartTime`, `CharacteristicName`
 
 The functions accepts certain query parameters. The ones supported are:
 - **select**
@@ -50,12 +52,12 @@ The functions accepts certain query parameters. The ones supported are:
   - Grouping: filter="CharacteristicName='Dissolved oxygen saturation'"
   - Temporal: filter=c("CreateTimestamp>'2020-03-23'", "CreateTimestamp<'2020-03-25'")
   - Spatial: filter="GeometryId='ds.hub.atlantic'"
-    - GeometryId Values (Subject to Change):
-      - Partner Hubs: `ds.hub.{atlantic,lakewinnipeg,mackenzie}`
-      - Countries: `iso.3166-1.{ca}`
-      - Provinces/Territories/States: `iso.3166-2.ca-{ab,bc,...,yt}`
-      - Drainage Areas: `ca.oda.*`,`ca.mda.*`,`ca.sda.*`,`ca.ssda.*`
-      - Waterbodies: `ihb.marine.*`, `ca.greatlakes.*`, `ca.lakes.*`, `ca.rivers.*` (Coming soon)
+    - RegionId Values (We're actively working on these, values will change):
+      - Partner Hubs: `hub.{atlantic,lakewinnipeg,mackenzie}`
+      - Countries: `admin.2.{ca}`
+      - Provinces/Territories/States: `admin.4.ca-{ab,bc,...,yt}`
+      - Watersheds/Drainage Areas: `watershed.oda.*`,`watershed.mda.*`,`watershed.sda.*`,`watershed.ssda.*` (Future)
+      - Water: `waterbody.marine.*`, `waterbody.greatlakes.*`, `waterbody.lakes.*`, `waterbody.rivers.*` (Future)
 - **count**
   - Return only the count for the request
   - Example: count=TRUE
