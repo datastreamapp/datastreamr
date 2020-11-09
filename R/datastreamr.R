@@ -52,6 +52,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
                   "&$select=", paste(select, collapse = ","),
                   "&$top=", top, sep = "", "&$count=", count)
     url <- URLencode(paste(endpoint, path, sep = ""))
+    print(url)
     if (all_data) {
         obs <- get_all_data(url, api_token)
     } else {
@@ -190,12 +191,16 @@ get_data <- function(url, api_token) {
         stop("504: Timeout. Lowering $top should resolve your issue")
     } else if (response$status_code == 502) {
         stop("502: Bad Gateway. Please ensure that your path is correct")
+    } else if (response$status_code == 500) {
+      stop("500: Internal Server Error. Please contact the DataStream team")
     } else if (response$status_code == 403) {
         stop("403: Forbidden. Please ensure that your api token is correct")
     } else if (response$status_code == 400) {
       stop("400: Bad Request. Please ensure that proper filters and selects are being passed")
     } else if (response$status_code == 200) {
         data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
+    } else {
+      stop(paste(response$status_code, ": Please contact the DataStream team"))
     }
     return(data)
 }
@@ -218,6 +223,8 @@ get_all_data <- function(url, api_token) {
             stop("504: Timeout. Lowering $top should resolve your issue")
         } else if (response$status_code == 502) {
             stop("502: Bad Gateway. Please ensure that your path is correct")
+        } else if (response$status_code == 500) {
+          stop("500: Internal Server Error. Please contact the DataStream team")
         } else if (response$status_code == 403) {
             stop("403: Forbidden. Please ensure that your api token is correct")
         } else if (response$status_code == 400) {
@@ -226,6 +233,8 @@ get_all_data <- function(url, api_token) {
             data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
             obs <- rbind(obs, data)
             url <- fromJSON(content(response, "text", encoding = "UTF-8"))$`@odata.nextLink`
+        } else {
+          stop(paste(response$status_code, ": Please contact the DataStream team"))
         }
     }
     return(obs)
