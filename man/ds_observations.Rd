@@ -40,8 +40,8 @@ from the observation end point. Also allows to return the count of this request.
 }
 \examples{
 ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-"ActivityStartTimeStamp>2019-01-01"),orderby = "ActivityStartTimeStamp",top=1000)
+"ActivityStartTimeStamp>2019-01-01"),orderby = "ActivityStartDate",top=1000)
 
 ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-"ActivityStartTimeStamp>2019-01-01"),orderby = "ActivityStartTimeStamp", count = TRUE)
+"ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
 }
