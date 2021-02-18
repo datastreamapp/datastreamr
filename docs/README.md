@@ -51,12 +51,12 @@ The functions accepts certain query parameters. The ones supported are:
   - Temporal: filter=c("CreateTimestamp>'2020-03-23'", "CreateTimestamp<'2020-03-25'")
   - Spatial: filter=c(RegionId='hub.atlantic')
       - RegionId Values (We're actively working on these, values will change):
-      - Partner Hubs: hub.{atlantic,lakewinnipeg,mackenzie}
-      - Countries: admin.2.{ca}
-      - Provinces/Territories/States: admin.4.ca-{ab,bc,...,yt}
-      - Watersheds/Drainage Areas: watershed.oda.*,watershed.mda.*,watershed.sda.*,watershed.ssda.* (Future)
-      - Water: waterbody.marine.*, waterbody.greatlakes.*, waterbody.lakes.*, waterbody.rivers.* (Future)
-      - Bounding box $filter=LongitudeNormalized gt '-102.01' and LongitudeNormalized lt '-88.99' and LatitudeNormalized gt '49' and LatitudeNormalized lt '60'
+        - Partner Hubs: hub.{atlantic,lakewinnipeg,mackenzie}
+        - Countries: admin.2.{ca}
+        - Provinces/Territories/States: admin.4.ca-{ab,bc,...,yt}
+        - Watersheds/Drainage Areas: watershed.oda.*,watershed.mda.*,watershed.sda.*,watershed.ssda.* (Future)
+        - Water: waterbody.marine.*, waterbody.greatlakes.*, waterbody.lakes.*, waterbody.rivers.* (Future)
+        - Bounding box $filter=LongitudeNormalized gt '-102.01' and LongitudeNormalized lt '-88.99' and LatitudeNormalized gt '49' and LatitudeNormalized lt '60'
 - **count**
   - Return only the count for the request
   - Example: count=TRUE
