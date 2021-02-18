@@ -47,15 +47,16 @@ The functions accepts certain query parameters. The ones supported are:
   - Example: top=10
 - **filter**
   - Available filters: =, <, >, <=, >=
-  - Grouping: filter="CharacteristicName='Dissolved oxygen saturation'"
+  - Grouping: filter=c("CharacteristicName='Dissolved oxygen saturation'")
   - Temporal: filter=c("CreateTimestamp>'2020-03-23'", "CreateTimestamp<'2020-03-25'")
-  - Spatial: filter="GeometryId='ds.hub.atlantic'"
-    - GeometryId Values (Subject to Change):
-      - Partner Hubs: `ds.hub.{atlantic,lakewinnipeg,mackenzie}`
-      - Countries: `iso.3166-1.{ca}`
-      - Provinces/Territories/States: `iso.3166-2.ca-{ab,bc,...,yt}`
-      - Drainage Areas: `ca.oda.*`,`ca.mda.*`,`ca.sda.*`,`ca.ssda.*`
-      - Waterbodies: `ihb.marine.*`, `ca.greatlakes.*`, `ca.lakes.*`, `ca.rivers.*` (Coming soon)
+  - Spatial: filter=c(RegionId='hub.atlantic')
+      - RegionId Values (We're actively working on these, values will change):
+      - Partner Hubs: hub.{atlantic,lakewinnipeg,mackenzie}
+      - Countries: admin.2.{ca}
+      - Provinces/Territories/States: admin.4.ca-{ab,bc,...,yt}
+      - Watersheds/Drainage Areas: watershed.oda.*,watershed.mda.*,watershed.sda.*,watershed.ssda.* (Future)
+      - Water: waterbody.marine.*, waterbody.greatlakes.*, waterbody.lakes.*, waterbody.rivers.* (Future)
+      - Bounding box $filter=LongitudeNormalized gt '-102.01' and LongitudeNormalized lt '-88.99' and LatitudeNormalized gt '49' and LatitudeNormalized lt '60'
 - **count**
   - Return only the count for the request
   - Example: count=TRUE
