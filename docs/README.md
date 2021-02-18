@@ -23,15 +23,15 @@ The allowed values for the functions are:
 
 - **ds_metadata**
   - Select: `Id`, `Name`, `Abstract`, `Citation`, `DataStewardEmail`, `DataCollectionOrganization`, `DataCollectionInformation`, `DataProcessing`, `DataUploadOrganization`, `DataSources`, `FundingSources`, `License`, `Disclaimer`, `Doi`, `Iso`, `Keywords`, `VerifyTimestamp`, `ApproveTimestamp`, `Filesize`, `Version`, `CreateTimestamp`, `ProgramName`
-  - Filter: `Id`, `Name`, `CreateTimestamp`, `CharacteristicName`, `GeometryId`
+  - Filter: `Id`, `Name`, `CreateTimestamp`, `CharacteristicName`, `RegionId`
   - Orderby: `Name`, `CreateTimestamp`
 - **ds_locations**
   - Select: `Id`, `Name`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`,   `Type`,`Waterbody`
-  - Filter: `Id`, `Name`, `CharacteristicName`, `GeometryId`
+  - Filter: `Id`, `Name`, `CharacteristicName`, `RegionId`
   - Orderby: `Name`
 - **ds_observations**
   - Select: `Id`, `DatasetId`, `LocationId`, `ActivityType`, `ActivityMediaName`, `ActivityStartTimestamp`, `ActivityEndTimestamp`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartTimestamp`, `LaboratoryName`, `LaboratorySampleId`
-  - Filter: `DatasetId`, `LocationId`, `ActivityStartTimestamp`, `ActivityType`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `GeometryId`
+  - Filter: `DatasetId`, `LocationId`, `ActivityStartTimestamp`, `ActivityType`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `RegionId`
   - Orderby: `ActivityStartTimestamp`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`
 
 The functions accepts certain query parameters. The ones supported are:
