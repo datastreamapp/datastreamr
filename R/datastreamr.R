@@ -3,7 +3,7 @@
 # Author: Patrick J. LeClair 2020-05-01
 ###############################################################################
 
-#' Pulls information from the Records endpoint
+#' Pulls data formatted the same as the upload template including all columns listed in the schema
 #'
 #' \code{ds_records} Takes in different API request criteria such as row selections and filters
 #' and returns the desired data. Allows for an easy interface for calling the data
@@ -56,7 +56,8 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
   return(obs)
 }
 
-#' Pulls information from the Observations endpoint
+#' Pulls data in a condensed format that must be joined with other endpoints to create schema template. Meant more for app creation.
+#'
 #'
 #' \code{ds_observations} Takes in different API request criteria such as row selections and filters
 #' and returns the desired data. Allows for an easy interface for calling the data
@@ -109,7 +110,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
     return(obs)
 }
 
-#' Pulls information from the Locations endpoint
+#' Pulls only the location data including Id, Name, Latitude, and Longitude.
 #'
 #' \code{ds_observations} Takes in different API request criteria such as row selections and filters
 #' and returns the desired data. Allows for an easy interface for calling the data
@@ -162,7 +163,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
     return(obs)
 }
 
-#' Pulls information from the Metadata endpoint
+#' Pulls only the metadata information including dataset name, citation, license, abstract, etc.
 #'
 #' \code{ds_metadata} Takes in different API request criteria such as row selections and filters
 #' and returns the desired data. Allows for an easy interface for calling the data
