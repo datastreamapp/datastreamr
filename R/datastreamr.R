@@ -10,7 +10,7 @@
 #' from the records end point. Also allows to return the count of this request.
 #' @param api_token A character string containing your unique API token
 #' @param select A list of allowable columns to return
-#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=
+#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
 #' @param FALSE Boolean. When TRUE, returns count of data instead of data
@@ -64,7 +64,7 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
 #' from the observation end point. Also allows to return the count of this request.
 #' @param api_token A character string containing your unique API token
 #' @param select A list of allowable columns to return
-#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=
+#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
 #' @param FALSE Boolean. When TRUE, returns count of data instead of data
@@ -170,7 +170,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
 #' from the observation end point. Also allows to return the count of this request.
 #' @param api_token A character string containing your unique API token
 #' @param select A list of allowable columns to return
-#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=
+#' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
 #' @param FALSE Boolean. When TRUE, returns count of data instead of data
@@ -268,13 +268,18 @@ create_path <- function(select, filters, orderby, top, count){
 
     formatted_filters <- lapply(filters, function(filter)
                                 paste(trimws(gsub("[=><].*","", filter)) , str_extract(filter, "[=><]"), "'",
-                                      trimws(gsub(".*[=><]","", filter)), "'", sep = ""))
+                                      if (grepl("'", filter)) {
+                                        str_remove_all(trimws(gsub(".*[=><]","", filter)),"'")                                               }
+                                      else {
+                                        trimws(gsub(".*[=><]","", filter))
+                                        }, "'", sep = ""))
 
     formatted_filters <- gsub("=", " eq ", formatted_filters)
     formatted_filters <- gsub(">", " gt ", formatted_filters)
     formatted_filters <- gsub("<", " lt ", formatted_filters)
     formatted_filters <- gsub(">=", " gte ", formatted_filters)
     formatted_filters <- gsub("<=", " lte ", formatted_filters)
+    formatted_filters <- gsub("!=", " ne ", formatted_filters)
 
     if(length(formatted_filters) > 1){
       path <- paste("$filter=", paste(formatted_filters, collapse = " and "), "&$orderby=", paste(orderby, collapse = ","),
