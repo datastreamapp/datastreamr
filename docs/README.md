@@ -40,53 +40,81 @@ The API returns an id for a licence, these should be mapped to their full names 
 The allowed values for the functions are:
 
 - **ds_metadata**
-  - Select: `Id`, `Name`, `Abstract`, `Citation`, `DataStewardEmail`, `DataCollectionOrganization`, `DataCollectionInformation`, `DataProcessing`, `DataUploadOrganization`, `DataSources`, `FundingSources`, `License`, `Disclaimer`, `Doi`, `Iso`, `Keywords`, `VerifyTimestamp`, `ApproveTimestamp`, `Filesize`, `Version`, `CreateTimestamp`, `ProgramName`
-  - Filter By: `Id`, `Name`, `CreateTimestamp`, `CharacteristicName`, `RegionId`
-  - Order By: `Name`, `CreateTimestamp`
+  - Select: `DOI`, `Version`, `DatasetName`, `DataStewardEmail`, `DataCollectionOrganization`, `DataUploadOrganization`, `ProgressCode`, `MaintenanceFrequencyCode`, `Abstract`, `DataCollectionInformation`, `DataProcessing`, `FundingSources`, `DataSourceURL`, `OtherDataSources`, `Citation`,   `Licence`, `Disclaimer`, `TopicCategoryCode`, `Keywords`, `CreateTimestamp`
+  - Filter By: `DOI`, `DatasetName`, `RegionId`, `Latitude`, `Longitude`, `LatitudeNormalized`, `LongitudeNormalized`, `CreateTimestamp`
+  - Order By: `DatasetName`, `CreateTimestamp`
 - **ds_locations**
-  - Select: `Id`, `Name`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`,   `Type`,`Waterbody`
-  - Filter By: `Id`, `Name`, `CharacteristicName`, `RegionId`
-  - Order By: `Name`
+  - Select: `Id`, `DOI`, `NameId`, `Name`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`, `HorizontalAccuracyMeasure`, `HorizontalAccuracyUnit`, `VerticalMeasure`, `VerticalUnit`, `Type`, `LatitudeNormalized`\*, `LongitudeNormalized`\*, `HorizontalCoordinateReferenceSystemNormalized`\*
+  - Filter By: `Id`, `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `Name`, `LatitudeNormalized`, `LongitudeNormalized`
+  - Order By: `Id`, `Name`
+
+  \* Normalized coordinates are in `WGS84` projection.
+
 - **ds_observations**
-  - Select: `Id`, `DatasetId`, `LocationId`, `ActivityType`, `ActivityMediaName`, `ActivityStartTimestamp`, `ActivityEndTimestamp`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartTimestamp`, `LaboratoryName`, `LaboratorySampleId`
-  - Filter By: `DatasetId`, `LocationId`, `ActivityStartTimestamp`, `ActivityType`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`, `RegionId`
-  - Order By: `ActivityStartTimestamp`, `CharacteristicName`, `MethodSpeciation`, `SampleFraction`
+  - Select: `Id`, `DOI`, `LocationId`, `ActivityType`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleId`, `ActivityDepthHeightMeasureNormalized`, `ActivityDepthHeightUnitNormalized`, `ResultValueNormalized`, `ResultUnitNormalized`, `ResultDetectionQuantitationLimitMeasureNormalized`, `ResultDetectionQuantitationLimitUnitNormalized`, `CreateTimestamp`
+  - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `LocationId`, `LatitudeNormalized`, `LongitudeNormalized`
+  - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
 - **ds_records**
-  - Select By: `Id`, `DatasetName`, `MonitoringLocationID`, `MonitoringLocationName`, `MonitoringLocationLatitude`, `MonitoringLocationLongitude`, `MonitoringLocationHorizontalCoordinateReferenceSystem`, `MonitoringLocationHorizontalAccuracyMeasure`, `MonitoringLocationHorizontalAccuracyUnit`, `MonitoringLocationVerticalMeasure`, `MonitoringLocationVerticalUnit`, `MonitoringLocationType`, `ActivityType`, `ActivityMediaName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitType`, `ResultStatusID`, `ResultComment`, `ResultAnalyticalMethodID`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleID`
-  - Filter By: `Id`, `DatasetName`, `MonitoringLocationID`, `MonitoringLocationName`, `MonitoringLocationLatitude`, `MonitoringLocationLongitude`, `MonitoringLocationHorizontalCoordinateReferenceSystem`, `MonitoringLocationHorizontalAccuracyMeasure`, `MonitoringLocationHorizontalAccuracyUnit`, `MonitoringLocationVerticalMeasure`, `MonitoringLocationVerticalUnit`, `MonitoringLocationType`, `ActivityType`, `ActivityMediaName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitType`, `ResultStatusID`, `ResultComment`, `ResultAnalyticalMethodID`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleID`, `RegionId`
-  - Order By: `DatasetName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `CharacteristicName`
+  - Select By: `Id`, `DOI`, `DatasetName`, `MonitoringLocationID`, `MonitoringLocationName`, `MonitoringLocationLatitude`, `MonitoringLocationLongitude`, `MonitoringLocationHorizontalCoordinateReferenceSystem`, `MonitoringLocationHorizontalAccuracyMeasure`, `MonitoringLocationHorizontalAccuracyUnit`, `MonitoringLocationVerticalMeasure`, `MonitoringLocationVerticalUnit`, `MonitoringLocationType`, `ActivityType`, `ActivityMediaName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitType`, `ResultStatusID`, `ResultComment`, `ResultAnalyticalMethodID`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleID`
+  - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `LocationId`
+  - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
 
 The functions accepts certain query parameters. The ones supported are:
 - **select**
   - Fields to be selected are entered as a list.
-  - Example: select=c("Name","Abstract")
+  - Example: `select=c("DatasetName","Abstract")`
   - Default: All columns available.
 - **orderby**
   - Fields to order by are entered comma delimited.
-  - Example: orderby=c("Name","CreateTimestamp")
+  - Example: `orderby=c("DatasetName","CreateTimestamp")`
 - **top**
   - Maximum: 10000
-  - Example: top=10
+  - Example: `top=10`
 - **filter**
-  - Available filters: =, <, >, <=, >=, !=
-  - Grouping: filter=c("CharacteristicName=Dissolved oxygen saturation")
-  - Temporal: filter=c("CreateTimestamp>2020-03-23", "CreateTimestamp<2020-03-25")
-  - Spatial: filter=c(RegionId=hub.atlantic)
-      - RegionId Values (We're actively working on these, values will change):
-        - Partner Hubs: hub.{atlantic,lakewinnipeg,mackenzie}
-        - Countries: admin.2.{ca}
-        - Provinces/Territories/States: admin.4.ca-{ab,bc,...,yt}
-        - Watersheds/Drainage Areas: watershed.oda.*,watershed.mda.*,watershed.sda.*,watershed.ssda.* (Future)
-        - Water: waterbody.marine.*, waterbody.greatlakes.*, waterbody.lakes.*, waterbody.rivers.* (Future)
-        - Bounding box $filter=LongitudeNormalized > '-102.01' and LongitudeNormalized < '-88.99' and LatitudeNormalized > '49' and LatitudeNormalized < '60'
+  - Available filters: `=, <, >, <=, >=, !=`
+  - Grouping: `filter=c("CharacteristicName=Dissolved oxygen saturation", "DOI='10.25976/n02z-mm23'")`
+  - Temporal: `filter=c("CreateTimestamp>2020-03-23", "CreateTimestamp<2020-03-25")`
+  - Spatial: `filter=c(RegionId=hub.atlantic)`
+      - RegionId Values (these values are subject to change):
+        - Partner Hubs: `hub.{atlantic,lakewinnipeg,mackenzie}`
+        - Countries: `admin.2.{ca}`
+        - Provinces/Territories/States: `admin.4.ca-{ab,bc,...,yt}`
+        - Watersheds/Drainage Areas: `watershed.oda.*`,`watershed.mda.*`,`watershed.sda.*`,`watershed.ssda.*` (Future)
+        - Water: `waterbody.marine.*`, `waterbody.greatlakes.*`, `waterbody.lakes.*`, `waterbody.rivers.*` (Future)
+        - Bounding box: `filter=c("LongitudeNormalized>'-102.01'", "LongitudeNormalized<'-88.99'", "LatitudeNormalized>'49'", "LatitudeNormalized<'60'"`
 - **count**
-  - Return only the count for the request
-  - Example: count=TRUE
-  - Default: FALSE
-  
+  - Return only the count for the request. When the value is large enough it becomes an estimate (~0.0005% accurate)
+  - Example: `count=TRUE`
+  - Default: `FALSE`
+- **$skip**
+  - Example: `skip=10`
+- **$skiptoken**
+  - Return the next items after the skipped token, cannot be paired with `orderby`
+  - Example: `skiptoken=Id:1234`
   ### Performance Tips
 - Using select to request only the parameters you need will decrease the amount of data needed to process and transfer.
 - Not using orderby will improve response times.
+
+### Performance Tips
+- Using `select` to request only the parameters you need will decrease the amount of data needed to be transfer.
+- Using large `skip` values can be slow (it's a database thing), slicing your data by `GeometryId` and/or `CharacteristicName` will help prevent this.
+- Don't use `orderby` unless you plan to pull a smaller number of results.
+
+## Full examples
+Get the citation and licence for a dataset:
+```bash
+curl -G -H 'x-api-key: PRIVATE-API-KEY' \
+     https://api.datastream.org/v1/odata/v4/Metadata \
+     --data-urlencode "\$select=DOI,DatasetName,Licence,Citation,Version" \
+     --data-urlencode "\$filter=endswith(DOI, 'xxxx-xxxx')" \
+```
+
+Get all `pH` observations in `Alberta`:
+```bash
+curl -G -H 'x-api-key: PRIVATE-API-KEY' \
+     https://api.datastream.org/v1/odata/v4/Observations \
+     --data-urlencode "\$filter=CharacteristicName eq 'pH' and RegionId eq 'admin.4.ca-ab'"
+```
 
 ### Contributors
 - [Patrick LeClair](https://github.com/patrickleclair-GORDONFN)
