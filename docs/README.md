@@ -86,9 +86,9 @@ The functions accepts certain query parameters. The ones supported are:
   - Return only the count for the request. When the value is large enough it becomes an estimate (~0.0005% accurate)
   - Example: `count=TRUE`
   - Default: `FALSE`
-- **$skip**
+- **skip**
   - Example: `skip=10`
-- **$skiptoken**
+- **skiptoken**
   - Return the next items after the skipped token, cannot be paired with `orderby`
   - Example: `skiptoken=Id:1234`
   ### Performance Tips
