@@ -102,18 +102,13 @@ The functions accepts certain query parameters. The ones supported are:
 
 ## Full examples
 Get the citation and licence for a dataset:
-```bash
-curl -G -H 'x-api-key: PRIVATE-API-KEY' \
-     https://api.datastream.org/v1/odata/v4/Metadata \
-     --data-urlencode "\$select=DOI,DatasetName,Licence,Citation,Version" \
-     --data-urlencode "\$filter=endswith(DOI, 'xxxx-xxxx')" \
+```R
+ds_metadata(api_token,filter=c("DOI='10.25976/1q5q-zy55'"), select=c("DOI","DatasetName","Licence","Citation","Version"))
 ```
 
 Get all `pH` observations in `Alberta`:
-```bash
-curl -G -H 'x-api-key: PRIVATE-API-KEY' \
-     https://api.datastream.org/v1/odata/v4/Observations \
-     --data-urlencode "\$filter=CharacteristicName eq 'pH' and RegionId eq 'admin.4.ca-ab'"
+```R
+ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca-ab'"))
 ```
 
 ### Contributors
