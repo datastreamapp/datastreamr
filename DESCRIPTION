@@ -1,7 +1,7 @@
 Package: datastreamr
 Title: An R Wrapper for DataStream's Public API
-Version: 1.2.0
-Date: 2020-05-01
+Version: 1.3.0
+Date: 2021-08-19
 Authors@R: 
     person(given = "Patrick",
            family = "LeClair",
