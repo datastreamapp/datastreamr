@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 # OS
 .DS_Store
+
+# API Test file
+tests/API test.R
