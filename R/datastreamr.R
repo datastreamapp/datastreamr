@@ -13,7 +13,9 @@
 #' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
-#' @param FALSE Boolean. When TRUE, returns count of data instead of data
+#' @param count Boolean. When TRUE, returns count of data instead of data
+#' @param skip Number string to determine how many rows to skip
+#' @param skiptoken Number string returning the items after the skipped token. Cannot be paired with orderby
 #'
 #' @return If count = FALSE, then returns a dataframe with requested columns.
 #' If count = TRUE, returns a numeric string.
@@ -29,7 +31,7 @@
 #' "ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
 #' @export
 
-ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE) {
+ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
   if (is.null(top)) {
     top <- 1000
     all_data <- TRUE
@@ -43,7 +45,7 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
     count <- "false"
   }
   endpoint <- "https://api.datastream.org/v1/odata/v4/Records?"
-  path <- create_path(select, filter, orderby, top, count)
+  path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
   url <- URLencode(paste(endpoint, path, sep = ""))
   print(url)
@@ -67,7 +69,9 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
 #' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
-#' @param FALSE Boolean. When TRUE, returns count of data instead of data
+#' @param count Boolean. When TRUE, returns count of data instead of data
+#' @param skip Number string to determine how many rows to skip
+#' @param skiptoken Number string returning the items after the skipped token. Cannot be paired with orderby
 #'
 #' @return If count = FALSE, then returns a dataframe with requested columns.
 #' If count = TRUE, returns a numeric string.
@@ -83,7 +87,7 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
 #' "ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
 #' @export
 
-ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE) {
+ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
     if (is.null(top)) {
         top <- 1000
         all_data <- TRUE
@@ -97,7 +101,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
         count <- "false"
     }
     endpoint <- "https://api.datastream.org/v1/odata/v4/Observations?"
-    path <- create_path(select, filter, orderby, top, count)
+    path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
     print(url)
@@ -120,7 +124,9 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
 #' @param filter A list of conditions to filter by. Allowable conditions are =
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
-#' @param FALSE Boolean. When TRUE, returns count of data instead of data
+#' @param count Boolean. When TRUE, returns count of data instead of data
+#' @param skip Number string to determine how many rows to skip
+#' @param skiptoken Number string returning the items after the skipped token. Cannot be paired with orderby
 #'
 #' @return If count = FALSE, then returns a dataframe with requested columns.
 #' If count = TRUE, returns a numeric string.
@@ -136,7 +142,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
 #' "RegionId=hub.atlantic"),orderby = "Name", count = TRUE)
 #' @export
 
-ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE) {
+ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
     if (is.null(top)) {
         top <- 1000
         all_data <- TRUE
@@ -150,7 +156,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
         count <- "false"
     }
     endpoint <- "https://api.datastream.org/v1/odata/v4/Locations?"
-    path <- create_path(select, filter, orderby, top, count)
+    path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
     print(url)
@@ -173,7 +179,9 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
 #' @param filter A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=
 #' @param orderby List of columns to orderby
 #' @param top Number string to determine number of rows to return. If NULL, returns all rows
-#' @param FALSE Boolean. When TRUE, returns count of data instead of data
+#' @param count Boolean. When TRUE, returns count of data instead of data
+#' @param skip Number string to determine how many rows to skip
+#' @param skiptoken Number string returning the items after the skipped token. Cannot be paired with orderby
 #'
 #' @return If count = FALSE, then returns a dataframe with requested columns.
 #' If count = TRUE, returns a numeric string.
@@ -189,7 +197,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
 #' "RegionId=hub.atlantic"),orderby = "Doi", count = TRUE)
 #' @export
 
-ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE) {
+ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
     if (is.null(top)) {
         top <- 1000
         all_data <- TRUE
@@ -204,7 +212,7 @@ ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL,
     }
 
     endpoint <- "https://api.datastream.org/v1/odata/v4/Metadata?"
-    path <- create_path(select, filter, orderby, top, count)
+    path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
     print(url)
@@ -261,10 +269,10 @@ get_all_data <- function(url, api_token) {
 #'
 #' Takes in arguments from various ds_... functions and creates the query to be appended to the appropriate API endpoint
 #' @return a string
-#' @importFrom stringr str_extract
+#' @importFrom stringr str_extract str_remove_all
 #' @noRd
 
-create_path <- function(select, filters, orderby, top, count){
+create_path <- function(select, filters, orderby, top, count, skip, skiptoken){
 
     formatted_filters <- lapply(filters, function(filter)
                                 paste(trimws(gsub("[=><].*","", filter)) , str_extract(filter, "[=><]"), "'",
@@ -284,11 +292,11 @@ create_path <- function(select, filters, orderby, top, count){
     if(length(formatted_filters) > 1){
       path <- paste("$filter=", paste(formatted_filters, collapse = " and "), "&$orderby=", paste(orderby, collapse = ","),
                     "&$select=", paste(select, collapse = ","),
-                    "&$top=", top, sep = "", "&$count=", count)
+                    "&$top=", top, sep = "", "&$count=", count, "&$skip=", skip, "&$skiptoken=", skiptoken)
     }else{
       path <- paste("$filter=", formatted_filters, "&$orderby=", paste(orderby, collapse = ","),
                     "&$select=", paste(select, collapse = ","),
-                    "&$top=", top, sep = "", "&$count=", count)
+                    "&$top=", top, sep = "", "&$count=", "&$skip=", skip, "&$skiptoken=", skiptoken)
     }
 
     return(path)
