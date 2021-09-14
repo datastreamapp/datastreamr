@@ -2,7 +2,7 @@
 % Please edit documentation in R/datastreamr.R
 \name{ds_observations}
 \alias{ds_observations}
-\title{Pulls information from the Observations endpoint}
+\title{Pulls data in a condensed format that must be joined with other endpoints to create schema template. Meant more for app creation.}
 \usage{
 ds_observations(
   api_token,
@@ -10,7 +10,9 @@ ds_observations(
   filter = NULL,
   orderby = NULL,
   top = NULL,
-  count = FALSE
+  count = FALSE,
+  skip = NULL,
+  skiptoken = NULL
 )
 }
 \arguments{
@@ -18,13 +20,17 @@ ds_observations(
 
 \item{select}{A list of allowable columns to return}
 
-\item{filter}{A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=}
+\item{filter}{A list of conditions to filter by. Allowable conditions are =,<,>,<=,>=,!=}
 
 \item{orderby}{List of columns to orderby}
 
 \item{top}{Number string to determine number of rows to return. If NULL, returns all rows}
 
-\item{FALSE}{Boolean. When TRUE, returns count of data instead of data}
+\item{count}{Boolean. When TRUE, returns count of data instead of data}
+
+\item{skip}{Number string to determine how many rows to skip}
+
+\item{skiptoken}{Number string returning the items after the skipped token. Cannot be paired with orderby}
 }
 \value{
 If count = FALSE, then returns a dataframe with requested columns.

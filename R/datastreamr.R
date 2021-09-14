@@ -33,7 +33,7 @@
 
 ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
   if (is.null(top)) {
-    top <- 1000
+    top <- 500
     all_data <- TRUE
   } else {
     all_data <- FALSE
@@ -275,19 +275,20 @@ get_all_data <- function(url, api_token) {
 create_path <- function(select, filters, orderby, top, count, skip, skiptoken){
 
     formatted_filters <- lapply(filters, function(filter)
-                                paste(trimws(gsub("[=><].*","", filter)) , str_extract(filter, "[=><]"), "'",
+                                paste(trimws(gsub("[=><].*","", filter)) , str_extract(filter, "!=|<=|>=|=|<|>"), "'",
                                       if (grepl("'", filter)) {
-                                        str_remove_all(trimws(gsub(".*[=><]","", filter)),"'")                                               }
+                                        str_remove_all(trimws(gsub(".*[=><!]","", filter)),"'")                                               }
                                       else {
-                                        trimws(gsub(".*[=><]","", filter))
+                                        trimws(gsub(".*[=><!]","", filter))
                                         }, "'", sep = ""))
 
-    formatted_filters <- gsub("=", " eq ", formatted_filters)
-    formatted_filters <- gsub(">", " gt ", formatted_filters)
-    formatted_filters <- gsub("<", " lt ", formatted_filters)
     formatted_filters <- gsub(">=", " gte ", formatted_filters)
     formatted_filters <- gsub("<=", " lte ", formatted_filters)
     formatted_filters <- gsub("!=", " ne ", formatted_filters)
+    formatted_filters <- gsub(">", " gt ", formatted_filters)
+    formatted_filters <- gsub("<", " lt ", formatted_filters)
+    formatted_filters <- gsub("=", " eq ", formatted_filters)
+
 
     if(length(formatted_filters) > 1){
       path <- paste("$filter=", paste(formatted_filters, collapse = " and "), "&$orderby=", paste(orderby, collapse = ","),

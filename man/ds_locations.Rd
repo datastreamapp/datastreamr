@@ -2,7 +2,7 @@
 % Please edit documentation in R/datastreamr.R
 \name{ds_locations}
 \alias{ds_locations}
-\title{Pulls information from the Locations endpoint}
+\title{Pulls only the location data including Id, Name, Latitude, and Longitude.}
 \usage{
 ds_locations(
   api_token,
@@ -10,7 +10,9 @@ ds_locations(
   filter = NULL,
   orderby = NULL,
   top = NULL,
-  count = FALSE
+  count = FALSE,
+  skip = NULL,
+  skiptoken = NULL
 )
 }
 \arguments{
@@ -24,7 +26,11 @@ ds_locations(
 
 \item{top}{Number string to determine number of rows to return. If NULL, returns all rows}
 
-\item{FALSE}{Boolean. When TRUE, returns count of data instead of data}
+\item{count}{Boolean. When TRUE, returns count of data instead of data}
+
+\item{skip}{Number string to determine how many rows to skip}
+
+\item{skiptoken}{Number string returning the items after the skipped token. Cannot be paired with orderby}
 }
 \value{
 If count = FALSE, then returns a dataframe with requested columns.
