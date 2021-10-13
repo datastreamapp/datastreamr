@@ -33,7 +33,7 @@
 
 ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
   if (is.null(top)) {
-    top <- 500
+    top <- 1000
     all_data <- TRUE
   } else {
     all_data <- FALSE
@@ -261,6 +261,7 @@ get_all_data <- function(url, api_token) {
         data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
         obs <- rbind(obs, data)
         url <- fromJSON(content(response, "text", encoding = "UTF-8"))$`@odata.nextLink`
+        print(url)
     }
     return(obs)
 }
