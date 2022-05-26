@@ -78,7 +78,7 @@ The functions accepts certain query parameters. The ones supported are:
       - RegionId Values (these values are subject to change):
         - Partner Hubs: `hub.{atlantic,lakewinnipeg,mackenzie}`
         - Countries: `admin.2.{ca}`
-        - Provinces/Territories/States: `admin.4.ca-{ab,bc,...,yt}`
+        - Provinces/Territories/States: `admin.4.ca.{ab,bc,...,yt}`
         - Watersheds/Drainage Areas: `watershed.oda.*`,`watershed.mda.*`,`watershed.sda.*`,`watershed.ssda.*` (Future)
         - Water: `waterbody.marine.*`, `waterbody.greatlakes.*`, `waterbody.lakes.*`, `waterbody.rivers.*` (Future)
         - Bounding box: `filter=c("LongitudeNormalized>'-102.01'", "LongitudeNormalized<'-88.99'", "LatitudeNormalized>'49'", "LatitudeNormalized<'60'"`
@@ -108,7 +108,7 @@ ds_metadata(api_token,filter=c("DOI='10.25976/1q5q-zy55'"), select=c("DOI","Data
 
 Get all `pH` observations in `Alberta`:
 ```R
-ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca-ab'"))
+ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca.ab'"))
 ```
 
 ### Contributors
