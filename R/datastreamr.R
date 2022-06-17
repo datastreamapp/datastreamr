@@ -236,10 +236,14 @@ ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL,
 get_data <- function(url, api_token) {
     response <- GET(url, add_headers(`x-api-key` = api_token))
 
-    check_status(response$status_code)
 
-    data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
+    if(is.null(response)){
+      print("Response is NULL. Please contact the DataStream Team")
+    }else{
+      check_status(response$status_code)
 
+      data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
+    }
     return(data)
 }
 
@@ -256,12 +260,16 @@ get_all_data <- function(url, api_token) {
     while (!is.null(url)) {
         response <- GET(url, add_headers(`x-api-key` = api_token))
 
-        check_status(response$status_code)
+        if(is.null(response)){
+          url = NULL
+        }else{
+          check_status(response$status_code)
 
-        data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
-        obs <- rbind(obs, data)
-        url <- fromJSON(content(response, "text", encoding = "UTF-8"))$`@odata.nextLink`
-        print(url)
+          data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
+          obs <- rbind(obs, data)
+          url <- fromJSON(content(response, "text", encoding = "UTF-8"))$`@odata.nextLink`
+          print(url)
+        }
     }
     return(obs)
 }
