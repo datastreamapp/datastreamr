@@ -15,7 +15,7 @@ To install the most recent beta in R:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("gordonfn/datastreamr")
+devtools::install_github("datastreamapp/datastreamr")
 ```
 
 ## Attribution/Citation
@@ -110,9 +110,6 @@ Get all `pH` observations in `Alberta`:
 ```R
 ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca.ab'"))
 ```
-
-### Contributors
-- [Patrick LeClair](https://github.com/patrickleclair-GORDONFN)
 
 ## References
 - 
