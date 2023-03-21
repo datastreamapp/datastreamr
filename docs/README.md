@@ -10,6 +10,8 @@
 
 Provided with a selection of queries, the following functions call to the DataStream Public API and return a dataframe with the desired information. 
 
+**Note: We are looking into a known issue with how MonitoringLocationIDs are read into R. In the meantime, the R package may not function as expected with respect to MonitoringLocationIDs.**
+
 ## Installation
 To install the most recent beta in R:
 
