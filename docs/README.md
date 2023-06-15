@@ -58,7 +58,7 @@ The allowed values for the functions are:
   - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
 - **ds_records**
   - Select By: `Id`, `DOI`, `DatasetName`, `MonitoringLocationID`, `MonitoringLocationName`, `MonitoringLocationLatitude`, `MonitoringLocationLongitude`, `MonitoringLocationHorizontalCoordinateReferenceSystem`, `MonitoringLocationHorizontalAccuracyMeasure`, `MonitoringLocationHorizontalAccuracyUnit`, `MonitoringLocationVerticalMeasure`, `MonitoringLocationVerticalUnit`, `MonitoringLocationType`, `ActivityType`, `ActivityMediaName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitType`, `ResultStatusID`, `ResultComment`, `ResultAnalyticalMethodID`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleID`
-  - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `LocationId`
+  - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `LocationId`
   - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
 
 The functions accepts certain query parameters. The ones supported are:
