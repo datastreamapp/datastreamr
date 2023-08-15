@@ -207,7 +207,7 @@ select: 'Id', 'DOI', 'NameId', 'Name', 'Latitude', 'Longitude',
 'HorizontalCoordinateReferenceSystem', 'HorizontalAccuracyMeasure',
 'HorizontalAccuracyUnit', 'VerticalMeasure', 'VerticalUnit', 'MonitoringLocationType'
 
-filter: 'Id', 'DOI', 'MonitoringLocationType', 'ActivityStartDate', 
+filter: 'Id', 'DOI', 'MonitoringLocationType', 'ActivityStartYear', 
 'ActivityMediaName', 'CharacteristicName', 'RegionId', 'Name'
 
 ```
@@ -286,11 +286,11 @@ Example03 = ds_metadata(api_token=key,
 Example04 = ds_locations(api_token=key,
                          filter=c("RegionId='admin.4.ca.on'"))
 
-# Pull the site names and normalized lat/lon (WGS84 projection) coordinates for a particular dataset 
+# Pull the site names and lat/lon coordinates for a particular dataset 
 
 Example05 = ds_locations(api_token=key,
                          filter=c("DOI='10.25976/1q5q-zy55'"),
-                         select=c("Name","LatitudeNormalized","LongitudeNormalized"))
+                         select=c("Name","Latitude","Longitude"))
 
 # Pull all ph data available in the Atlantic DS Hub (only pulling top 1000)
 
