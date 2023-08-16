@@ -185,7 +185,6 @@ $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource
 * `MonitoringLocationType`
 * `ActivityMediaName`
 * `CharacteristicName`
-* `ActivityMediaName`
 
   ##
 
