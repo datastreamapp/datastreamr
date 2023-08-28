@@ -48,7 +48,7 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
   path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
   url <- URLencode(paste(endpoint, path, sep = ""))
-  print(url)
+  #print(url)
 
   if (all_data) {
     obs <- get_all_data(url, api_token)
@@ -104,7 +104,7 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
     path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
-    print(url)
+    #print(url)
 
     if (all_data) {
         obs <- get_all_data(url, api_token)
@@ -159,7 +159,7 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
     path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
-    print(url)
+    #print(url)
 
     if (all_data) {
         obs <- get_all_data(url, api_token)
@@ -215,7 +215,7 @@ ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL,
     path <- create_path(select, filter, orderby, top, count, skip, skiptoken)
 
     url <- URLencode(paste(endpoint, path, sep = ""))
-    print(url)
+    #print(url)
 
     if (all_data) {
         obs <- get_all_data(url, api_token)
@@ -268,7 +268,7 @@ get_all_data <- function(url, api_token) {
           data <- fromJSON(content(response, "text", encoding = "UTF-8"))$value
           obs <- rbind(obs, data)
           url <- fromJSON(content(response, "text", encoding = "UTF-8"))$`@odata.nextLink`
-          print(url)
+          #print(url)
         }
     }
     return(obs)
