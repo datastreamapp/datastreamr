@@ -13,7 +13,7 @@ This is tool is useful for those who want to extract large volumes of data from 
 *  Want to download all available DataStream pH data in Ontario
 *  Want to count how many sites in New Brunswick have cesium data on DataStream
 
-**Note:** DataStream's _Custom Download tool_ is another option that allows users to download csv data from accross datasets in a particular DataStream hub using basic filters. This tool has fewer filtering options than the API, but works well for basic searches. You can find it via 'Explore Data' in the header menu from any DataStream regional hub. 
+**Note:** DataStream's _Custom Download tool_ is another option that allows users to download csv data from across datasets in a particular DataStream hub using basic filters. This tool has fewer filtering options than the API, but works well for basic searches. You can find it via 'Explore Data' in the header menu from any DataStream regional hub. 
 
 ##
   
