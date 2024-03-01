@@ -323,6 +323,8 @@ check_status <- function(status_code){
     stop("413: Payload too Large.Try lowering $top or only pulling the values you need")
   } else if (status_code == 504) {
     stop("504: Timeout. Lowering $top or narrowing your search criteria should resolve your issue")
+  } else if (status_code == 408) {
+    stop("408: Timeout. Lowering $top or narrowing your search criteria should resolve your issue")
   } else if (status_code == 502) {
     stop("502: Bad Gateway. Please ensure that your path is correct")
   } else if (status_code == 500) {
@@ -334,6 +336,6 @@ check_status <- function(status_code){
   } else if (status_code == 200) {
     return(TRUE)
   } else {
-    stop(paste(response$status_code, ": Please contact the DataStream team"))
+    stop(paste(status_code, ": Please contact the DataStream team"))
   }
 }
