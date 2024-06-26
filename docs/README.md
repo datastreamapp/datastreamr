@@ -39,22 +39,22 @@ The API returns an id for a licence, these should be mapped to their full names 
 ## Allowed Values
 The allowed values for the functions are:
 
-- **ds_metadata**
+- **metadata**
   - Select: `DOI`, `Version`, `DatasetName`, `DataStewardEmail`, `DataCollectionOrganization`, `DataUploadOrganization`, `ProgressCode`, `MaintenanceFrequencyCode`, `Abstract`, `DataCollectionInformation`, `DataProcessing`, `FundingSources`, `DataSourceURL`, `OtherDataSources`, `Citation`,   `Licence`, `Disclaimer`, `TopicCategoryCode`, `Keywords`, `CreateTimestamp`
   - Filter By: `DOI`, `DatasetName`, `RegionId`, `Latitude`, `Longitude`, `LatitudeNormalized`, `LongitudeNormalized`, `CreateTimestamp`
   - Order By: `DatasetName`, `CreateTimestamp`
-- **ds_locations**
+- **locations**
   - Select: `Id`, `DOI`, `NameId`, `Name`, `Latitude`, `Longitude`, `HorizontalCoordinateReferenceSystem`, `HorizontalAccuracyMeasure`, `HorizontalAccuracyUnit`, `VerticalMeasure`, `VerticalUnit`, `Type`, `LatitudeNormalized`\*, `LongitudeNormalized`\*, `HorizontalCoordinateReferenceSystemNormalized`\*
   - Filter By: `Id`, `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `Name`, `LatitudeNormalized`, `LongitudeNormalized`
   - Order By: `Id`, `Name`
 
   \* Normalized coordinates are in `WGS84` projection.
 
-- **ds_observations**
+- **observations**
   - Select: `Id`, `DOI`, `LocationId`, `ActivityType`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitType`, `ResultStatusId`, `ResultComment`, `ResultAnalyticalMethodId`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleId`, `ActivityDepthHeightMeasureNormalized`, `ActivityDepthHeightUnitNormalized`, `ResultValueNormalized`, `ResultUnitNormalized`, `ResultDetectionQuantitationLimitMeasureNormalized`, `ResultDetectionQuantitationLimitUnitNormalized`, `CreateTimestamp`
   - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `RegionId`, `LocationId`, `LatitudeNormalized`, `LongitudeNormalized`
   - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
-- **ds_records**
+- **records**
   - Select By: `Id`, `DOI`, `DatasetName`, `MonitoringLocationID`, `MonitoringLocationName`, `MonitoringLocationLatitude`, `MonitoringLocationLongitude`, `MonitoringLocationHorizontalCoordinateReferenceSystem`, `MonitoringLocationHorizontalAccuracyMeasure`, `MonitoringLocationHorizontalAccuracyUnit`, `MonitoringLocationVerticalMeasure`, `MonitoringLocationVerticalUnit`, `MonitoringLocationType`, `ActivityType`, `ActivityMediaName`, `ActivityStartDate`, `ActivityStartTime`, `ActivityEndDate`, `ActivityEndTime`, `ActivityDepthHeightMeasure`, `ActivityDepthHeightUnit`, `SampleCollectionEquipmentName`, `CharacteristicName`, `MethodSpeciation`, `ResultSampleFraction`, `ResultValue`, `ResultUnit`, `ResultValueType`, `ResultDetectionCondition`, `ResultDetectionQuantitationLimitMeasure`, `ResultDetectionQuantitationLimitUnit`, `ResultDetectionQuantitationLimitType`, `ResultStatusID`, `ResultComment`, `ResultAnalyticalMethodID`, `ResultAnalyticalMethodContext`, `ResultAnalyticalMethodName`, `AnalysisStartDate`, `AnalysisStartTime`, `AnalysisStartTimeZone`, `LaboratoryName`, `LaboratorySampleID`
   - Filter By: `DOI`, `MonitoringLocationType`, `ActivityStartYear`, `ActivityMediaName`, `CharacteristicName`, `LocationId`
   - Order By: `Id`, `ActivityStartDate`, `ActivityStartTime`
@@ -82,18 +82,15 @@ The functions accepts certain query parameters. The ones supported are:
         - Watersheds/Drainage Areas: `watershed.oda.*`,`watershed.mda.*`,`watershed.sda.*`,`watershed.ssda.*` (Future)
         - Water: `waterbody.marine.*`, `waterbody.greatlakes.*`, `waterbody.lakes.*`, `waterbody.rivers.*` (Future)
         - Bounding box: `filter=c("LongitudeNormalized>'-102.01'", "LongitudeNormalized<'-88.99'", "LatitudeNormalized>'49'", "LatitudeNormalized<'60'"`
-- **count**
-  - Return only the count for the request. When the value is large enough it becomes an estimate (~0.0005% accurate)
-  - Example: `count=TRUE`
-  - Default: `FALSE`
-- **skip**
-  - Example: `skip=10`
-- **skiptoken**
-  - Return the next items after the skipped token, cannot be paired with `orderby`
-  - Example: `skiptoken=Id:1234`
   ### Performance Tips
 - Using select to request only the parameters you need will decrease the amount of data needed to process and transfer.
 - Not using orderby will improve response times.
+
+### Authentication
+By default the environment variable "DATASTREAM_API_KEY" is used for setting the API key. The API key can also be set by:
+```R
+setAPIKey('xxxxxxxxxx') // secrets should be injected securely
+```
 
 ### Performance Tips
 - Using `select` to request only the parameters you need will decrease the amount of data needed to be transfer.
@@ -103,14 +100,38 @@ The functions accepts certain query parameters. The ones supported are:
 ## Full examples
 Get the citation and licence for a dataset:
 ```R
-ds_metadata(api_token,filter=c("DOI='10.25976/1q5q-zy55'"), select=c("DOI","DatasetName","Licence","Citation","Version"))
+setAPIKey(YOUR_API_KEY)
+
+metadata(qs)
 ```
 
-Get all `pH` observations in `Alberta`:
+Fetch metadata by Id:
 ```R
-ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca.ab'"))
+setAPIKey(YOUR_API_KEY)
+
+qs <- list(
+  `$select` = "Id, DOI, Version, DatasetName, DataStewardEmail, DataCollectionOrganization, DataUploadOrganization, ProgressCode, MaintenanceFrequencyCode, Abstract, DataCollectionInformation, DataProcessing, FundingSources, DataSourceURL, OtherDataSources, Citation, Licence, Disclaimer, TopicCategoryCode, Keywords, CreateTimestamp, PublishedTimestamp",
+  `$filter` = "Id eq '0456bedd-cd0c-44ce-8f8d-da0afbb6694b'"
+)
+
+records(qs)
 ```
 
+## Tests
+Dockerfile is provided to run the unit tests and the integration tests. To build the docker image for running tests and other debugging purposes you can run: 
+```Bash
+docker build -t datastreamr .
+```
+
+To run the unit tests:
+```Bash
+docker run datastreamr R -e "library(testthat); test_file('test_unit.R')"
+```
+
+To run the integration tests:
+```Bash
+docker run datastreamr R -e "library(testthat); test_file('test_integration.R')"
+```
 ## References
 - 
 
