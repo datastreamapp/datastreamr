@@ -78,3 +78,101 @@ test_that("fetch metadata for DOI with top", {
   fetch_and_test_data(metadata, qs)
 })
 
+############# Tests from readme
+
+# test_that("Pull all metadata for all datasets in the Atlantic DS Hub", {
+# qs <- list(
+#     `$select` = "",
+#     `$filter` = ""
+#   )
+  
+#   fetch_and_test_data(metadata, qs)
+# })
+
+
+# test_that("Pull all metadata for all datasets in BC", {
+#   qs <- list(
+#     `$filter` = "RegionId eq 'admin.4.ca.bc'"
+#   )
+#   fetch_and_test_data(metadata, qs)
+# })
+
+
+# test_that("Pull only the DOI's and contact emails for all datasets in the Great Lakes Hub", {
+# qs <- list(
+#     `$select` = "DOI, DataStewardEmail",
+#     `$filter` = "RegionId eq 'hub.greatlakes'"
+#   )
+  
+#   fetch_and_test_data(metadata, qs)
+# })
+
+
+# test_that("Pull all location information for sites in Ontario )", {
+#   qs <- list(
+#     `$filter` = "RegionId eq 'admin.4.ca.on'",
+#     `$top` = "1000"
+#   )
+  
+#   fetch_and_test_data(locations, qs)
+# })
+
+
+# test_that("Pull the site names and lat/lon coordinates for a particular dataset)", {
+# qs <- list(
+#     `$select` = "Name, Latitude, Longitude",
+#     `$filter` = "DOI eq '10.25976/1q5q-zy55'"
+#   )
+  
+#   fetch_and_test_data(locations, qs)
+# })
+
+# test_that("Pull all ph data available in the Atlantic DS Hub (only pulling top 1000)", {
+#   qs <- list(
+#     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
+#     `$top` = "1000"
+#   )
+  
+#   fetch_and_test_data(records, qs)
+# })
+
+
+# test_that("only select desired columns", {
+#   qs <- list(
+#     `$select` = "DOI, DatasetName, MonitoringLocationName, MonitoringLocationLatitude",
+#     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
+#     `$top` = "1000"
+#   )
+  
+#   fetch_and_test_data(records, qs)
+# })
+
+# test_that("pull data before 2015 ", {
+#   qs <- list(
+#     `$select` = "DOI, DatasetName, MonitoringLocationName, MonitoringLocationLatitude",
+#     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH' and ActivityStartYear lt '2015'",
+#     `$top` = "1000"
+#   )
+  
+#   fetch_and_test_data(records, qs)
+# })
+
+# test_that("Try observations", {
+#   qs <- list(
+#     `$select` = "ResultValue",
+#     `$filter` = "CharacteristicName eq 'pH' and ActivityStartYear gt '2019'",
+#     `$top` = "1000"
+#   )
+  
+#   fetch_and_test_data(observations, qs)
+# })
+
+# test_that("Use the count filter", {
+#   qs <- list(
+#     `$select` = "ResultValue",
+#     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'Ammonia' and ActivityStartYear gt '2019'",
+#     `$count` = "true"
+#   )
+  
+#   fetch_and_test_data(observations, qs)
+# })

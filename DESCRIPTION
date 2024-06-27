@@ -1,12 +1,12 @@
 Package: datastreamr
 Title: An R Wrapper for DataStream's Public API
-Version: 1.4.0
-Date: 2021-09-14
+Version: 1.5.0
+Date: 2024-06-26
 Authors@R: 
-    person(given = "Patrick",
-           family = "LeClair",
+    person(given = "Kiril",
+           family = "Kirov",
            role = c("aut", "cre"),
-           email = "patrick@gordonfn.org",
+           email = "kiril.kirov@strato.earth",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 URL: https://github.com/gordonfn/datastreamr
 BugReports: https://github.com/gordonfn/datastreamr/issues 
@@ -17,7 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.1
 Depends: R(>= 4.0.0)
 Imports:
     httr(>= 1.4.1),

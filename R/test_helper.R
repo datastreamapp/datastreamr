@@ -18,7 +18,7 @@ fetch_and_test_data <- function(fetch_function, qs) {
   expect_is(result, "list")
   
   # Extract required columns from the query select parameter
-  required_columns <- unlist(strsplit(qs$`$select`, ", "))
+  required_columns <- if (!is.null(qs$`$select`)) unlist(strsplit(qs$`$select`, ", ")) else character(0)
   required_columns <- c(required_columns, "Id")  # Ensure 'Id' is included
   
   # Convert result to a data frame

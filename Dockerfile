@@ -9,13 +9,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install required R packages
-RUN R -e "install.packages(c('httr', 'jsonlite', 'testthat', 'stringr', 'httptest'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('httr', 'jsonlite', 'testthat', 'stringr', 'httptest', 'roxygen2'), repos='http://cran.rstudio.com/')"
 
 # Copy your R script and test script into the Docker image
-COPY R/datastreamr.R /usr/local/bin/datastreamr.R
-COPY R/test_helper.R /usr/local/bin/test_helper.R
-COPY R/test_integration.R /usr/local/bin/test_integration.R
-COPY R/test_unit.R /usr/local/bin/test_unit.R
+COPY R/datastreamr.R /datastream/R/datastreamr.R
+COPY R/test_helper.R /datastream/R/test_helper.R
+COPY R/test_integration.R /datastream/R/test_integration.R
+COPY R/test_unit.R /datastream/R/test_unit.R
 
 # Set the working directory
-WORKDIR /usr/local/bin
+WORKDIR /datastream
