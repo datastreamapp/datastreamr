@@ -161,7 +161,6 @@ Note: $`\color{blue}{\text{Below there is a list of allowed `select` values to c
     - ge: Used for greater than or equal to.
     - le: Used for less than or equal to.
     - and: Used to combine multiple filters with an “and” condition.
-    - or: Used to combine multiple filters with an “or” condition.
    - Grouping: `filter="CharacteristicName eq 'Dissolved oxygen saturation' and DOI eq '10.25976/n02z-mm23'"`
    - Temporal (Dataset creation): `filter="CreateTimestamp gt 2020-03-23"`
    - Temporal (Data date-range): `filter="ActivityStartYear gt '2019'"`
