@@ -6,15 +6,25 @@ library(jsonlite)
 # Author: [Kiril Kirov] 2024-06-25
 ###############################################################################
 
-# Set default global options
-options(datastream_domain = "https://api.datastream.org") # Base domain for the API
-options(datastream_apiKey = Sys.getenv("DATASTREAM_API_KEY")) # API key from environment variable
-options(datastream_rateLimitTimestamp = Sys.time()) # Rate limit timestamp initialization
-options(datastream_rateLimit = 0.05) # Rate limit duration in seconds
-options(datastream_headers = c( # Base headers for requests
-  Accept = 'application/vnd.api+json',
-  'Accept-Encoding' = "br, gzip, deflate"
-))
+# Function to set default global options
+set_default_options <- function() {
+  options(datastream_domain = "https://api.datastream.org") # Base domain for the API
+  options(datastream_apiKey = Sys.getenv("DATASTREAM_API_KEY")) # API key from environment variable
+  options(datastream_rateLimitTimestamp = Sys.time()) # Rate limit timestamp initialization
+  options(datastream_rateLimit = 0.05) # Rate limit duration in seconds
+  options(datastream_headers = c( # Base headers for requests
+    Accept = 'application/vnd.api+json',
+    'Accept-Encoding' = "br, gzip, deflate"
+  ))
+}
+
+# Set options on script load
+set_default_options()
+
+#' .onLoad function to set options when the package is loaded
+.onLoad <- function(libname, pkgname) {
+  set_default_options()
+}
 
 #' Set API Key
 #'
