@@ -41,7 +41,7 @@ test_that("fetch records for DOI and all locations", {
 
 test_that("fetch location by Id", {
   qs <- list(
-    `$select` = "Id, DOI, NameId, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
+    `$select` = "Id, DOI, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
     `$filter` = "LocationId eq '5717'",
     `$top` = "10"
   )
@@ -51,7 +51,7 @@ test_that("fetch location by Id", {
 
 test_that("fetch location for DOI with top", {
   qs <- list(
-    `$select` = "Id, DOI, NameId, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
+    `$select` = "Id, DOI, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
     `$filter` = "DOI eq '10.25976/4mf6-k783'",
     `$top` = "10"
   )

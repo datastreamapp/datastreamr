@@ -383,10 +383,10 @@ docker build -t datastreamr .
 
 To run the unit tests:
 ```Bash
-docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('R/test_unit.R')"
+docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('tests/testthat/test_unit.R')"
 ```
 
 To run the integration tests:
 ```Bash
-docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('R/test_integration.R')"
+docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('tests/testthat/test_integration.R')"
 ```

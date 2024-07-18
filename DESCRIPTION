@@ -2,14 +2,10 @@ Package: datastreamr
 Title: An R Wrapper for DataStream's Public API
 Version: 1.5.0
 Date: 2024-06-26
-Authors@R: 
-    person(given = "Kiril",
-           family = "Kirov",
-           role = c("aut", "cre"),
-           email = "kiril.kirov@strato.earth",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-URL: https://github.com/gordonfn/datastreamr
-BugReports: https://github.com/gordonfn/datastreamr/issues 
+Author: Kiril Kirov <kiril.kirov@strato.earth>
+Maintainer: Kiril Kirov <kiril.kirov@strato.earth>
+URL: https://github.com/datastreamapp/datastreamr
+BugReports: https://github.com/datastreamapp/datastreamr/issues 
 Description: This package allows for users familiar with R to call DataStream's public API
     directly through functions in R. This provides a more streamlined and easy approach to 
     getting data from DataStream.
@@ -17,14 +13,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
-Depends: R(>= 4.0.0)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.4.0)
 Imports:
-    httr(>= 1.4.1),
-    jsonlite(>= 1.6.1),
-    stringr(>= 1.4.0)
+    httr (>= 1.4.1),
+    jsonlite (>= 1.6.1),
+    stringr (>= 1.4.0)
 Suggests: 
-    knitr,
     rmarkdown,
-    testthat
-VignetteBuilder: knitr
+    testthat,
+    httptest

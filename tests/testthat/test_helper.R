@@ -1,7 +1,7 @@
 library(testthat)
 library(jsonlite)
 
-source("datastreamr.R")
+source("../../R/datastreamr.R")
 
 fetch_and_test_data <- function(fetch_function, qs) {
   # Extract a description from the query parameters
