@@ -12,7 +12,7 @@ partitionRequest(path, qs)
 \item{qs}{A list of query string parameters}
 }
 \value{
-A list of partitioned results
+A dataframe of partitioned results
 }
 \description{
 \code{partitionRequest} Handles partitioned requests to the API.

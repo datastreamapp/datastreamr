@@ -10,7 +10,7 @@ locations(qs)
 \item{qs}{A list of query string parameters}
 }
 \value{
-A list of location results
+A dataframe of location results
 }
 \description{
 \code{locations} Retrieves location data from the API.

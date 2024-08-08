@@ -10,7 +10,7 @@ observations(qs)
 \item{qs}{A list of query string parameters}
 }
 \value{
-A list of observation results
+A dataframe of observation results
 }
 \description{
 \code{observations} Retrieves observation data from the API.

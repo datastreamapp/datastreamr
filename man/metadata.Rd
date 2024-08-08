@@ -10,7 +10,7 @@ metadata(qs)
 \item{qs}{A list of query string parameters}
 }
 \value{
-A list of metadata results
+A dataframe of metadata results
 }
 \description{
 \code{metadata} Retrieves metadata from the API.

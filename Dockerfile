@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install required R packages
-RUN R -e "install.packages(c('httr', 'jsonlite', 'testthat', 'stringr', 'httptest', 'roxygen2'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('httr', 'jsonlite', 'testthat', 'stringr', 'httptest', 'dplyr', 'tidyr', 'roxygen2'), repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/')"
 
 # Copy your R script and test script into the Docker image

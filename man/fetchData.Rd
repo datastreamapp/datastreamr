@@ -10,7 +10,7 @@ fetchData(fetchOptions)
 \item{fetchOptions}{A list of fetch options including URL and query string}
 }
 \value{
-A list of results from the API
+A dataframe of results from the API
 }
 \description{
 \code{fetchData} Fetches data from the API, handling pagination.

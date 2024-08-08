@@ -1,5 +1,6 @@
 library(testthat)
 library(jsonlite)
+library(dplyr)
 
 source("../../R/datastreamr.R")
 
@@ -13,35 +14,36 @@ fetch_and_test_data <- function(fetch_function, qs) {
   
   # Fetch records
   result <- fetch_function(qs)
-
-  # Check that the result is a list
-  expect_is(result, "list")
+  
+  # Check that the result is a data frame
+  expect_is(result, "data.frame")
   
   # Extract required columns from the query select parameter
   required_columns <- if (!is.null(qs$`$select`)) unlist(strsplit(qs$`$select`, ", ")) else character(0)
   required_columns <- c(required_columns, "Id")  # Ensure 'Id' is included
   
-  # Convert result to a data frame
-  result_df <- do.call(rbind, lapply(result, function(x) {
-    x[sapply(x, is.null)] <- NA  # Replace NULLs with NA
-    as.data.frame(x)
-  }))
-  
   # Ensure all columns are present, adding NA for missing columns
   for (col in required_columns) {
-    if (!col %in% names(result_df)) {
-      result_df[[col]] <- NA
+    if (!col %in% names(result)) {
+      result[[col]] <- NA
     }
   }
   
-  # Reorder columns to fit the expected format
-  result_df <- result_df[, required_columns]
+  # Remove duplicate column names
+  names(result) <- make.unique(names(result))
+  
+  # Flatten any list columns
+  result <- result %>%
+    mutate(across(where(is.list), ~sapply(., toString)))
 
+  # Reorder columns to fit the expected format
+  result <- result[, required_columns, drop = FALSE]
+  
   # Create a temporary file for the CSV output
   output_file <- tempfile(fileext = ".csv")
-
+  
   # Write to CSV file
-  write.csv(result_df, output_file, row.names = FALSE)
+  write.csv(result, output_file, row.names = FALSE)
   
   # Check that the file exists
   expect_true(file.exists(output_file))

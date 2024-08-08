@@ -10,7 +10,7 @@ records(qs)
 \item{qs}{A list of query string parameters}
 }
 \value{
-A list of record results
+A dataframe of record results
 }
 \description{
 \code{records} Retrieves record data from the API.
