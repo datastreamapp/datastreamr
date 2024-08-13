@@ -101,21 +101,46 @@ fetchData <- function(fetchOptions) {
   result <- list()
   for (options in fetchOptions) {
     response <- fetchDataRateLimited(options)
-
     content <- content(response, as = "parsed", type = "application/json")
-    result <- c(result, content$value)
+    
+    # Check if the response contains a "value" that is a list (records) or scalar (count)
+    if (is.list(content$value)) {
+      result <- c(result, content$value)
+    } else {
+      # Handle count scenario
+      return(tibble::tibble(count = as.integer(content$value)))
+    }
+    
     next_link <- content$`@odata.nextLink`
     
     while (!is.null(next_link)) {
       options$url <- next_link
       response <- fetchDataRateLimited(options)
       content <- content(response, as = "parsed", type = "application/json")
-      result <- c(result, content$value)
-      next_link <- content$`@odata.nextLink`
+      
+      if (is.list(content$value)) {
+        result <- c(result, content$value)
+      }
     }
   }
 
-  bind_rows(result)
+  # Convert each record's arrays to strings and handle NULLs
+  converted_data <- lapply(result, function(record) {
+    record <- lapply(record, function(x) {
+      if (is.null(x)) {
+        return(NA)  # Replace NULL with NA
+      }
+      if (is.list(x)) {
+        return(paste(unlist(x), collapse = ", "))  # Convert lists to comma-separated strings
+      }
+      return(x)
+    })
+    as_tibble(record, .name_repair = "unique")
+  })
+
+  # Bind the list of records into a data frame
+  result_df <- bind_rows(converted_data)
+  return(result_df)
 }
 
 #' Get Metadata

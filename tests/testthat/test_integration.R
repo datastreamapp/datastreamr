@@ -78,6 +78,23 @@ test_that("fetch metadata for DOI with top", {
   fetch_and_test_data(metadata, qs)
 })
 
+test_that("fetch All metadata", {
+
+  qs <- list()
+
+  fetch_and_test_data(metadata, qs)
+})
+
+
+test_that("fetch Metadata count", {
+
+  qs <- list(
+    `$count` = "true"
+  )
+
+  fetch_and_test_data(metadata, qs)
+})
+
 ############# Tests from readme
 
 # test_that("Pull all metadata for all datasets in the Atlantic DS Hub", {
