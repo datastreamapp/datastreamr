@@ -143,7 +143,7 @@ All of the functions above accept query parameters. The ones supported are:
   - Example: `select=c("DatasetName","Abstract")`
   - Default: All columns available.
  
-Note: $`\color{blue}{\text{Below there is a list of allowed `select` values to choose from for each function}}`$
+$`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for available select fields
 
 ##
  - **filter:** *A list of conditions to filter by*  <br/>
@@ -151,14 +151,14 @@ Note: $`\color{blue}{\text{Below there is a list of allowed `select` values to c
    - Available filters: `=, <, >, <=, >=, !=`
    - Grouping: `filter=c("CharacteristicName=Dissolved oxygen saturation", "DOI='10.25976/n02z-mm23'")`
    - Temporal (Dataset creation): `filter=c("CreateTimestamp>2020-03-23")`
-   - Temporal (Data date-range): `filter=c("ActivityStartDate<1990-01-01")`
+   - Temporal (Data date-range): `filter=c("ActivityStartYear<1990")`
    - Spatial: `filter=c(RegionId=hub.atlantic)`
         - `RegionId` Values (these values are subject to change):
         - **DataStream Hubs**: `hub.{atlantic,lakewinnipeg,mackenzie,greatlakes,pacific }`
         - **Countries**: `admin.2.{ca}`
         - **Provinces/Territories**: `admin.4.ca.{ab,bc,mb,nb,nl,ns,nt,nu,on,pe,qc,sk,yt}`
           
-Note: $`\color{blue}{\text{Below there is a list of allowed `filter` values to choose from for each function}}`$
+$`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for available filter fields
     
 ##
 - **top:** *Number of rows to return* <br/>
@@ -179,7 +179,9 @@ Note: $`\color{blue}{\text{Below there is a list of allowed `filter` values to c
 
   
 ## Allowed Values
-The allowed select and filter options for each of the functions are below. 
+The allowed `select` and `filter` options for each of the functions are listed **<a href="https://github.com/datastreamapp/api-docs?tab=readme-ov-file#endpoints">HERE</a>**. 
+
+
 
 $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource is the "allowed values" tab of our <a href="https://datastreamorg.sharepoint.com/:x:/s/Datastream/EaqcNGHom7BFlRi6bRY4VDoBy6ECq6v3bbUyeb0B3S3HGg?e=75aBTl"> upload template </a>. This will give you available strings for: 
 * `MonitoringLocationType`
@@ -187,68 +189,6 @@ $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource
 * `CharacteristicName`
 
   ##
-
-
-- **ds_metadata**
- ```R
-select: 'DOI', 'Version', 'DatasetName', 'DataStewardEmail', 'DataCollectionOrganization', 
-'DataUploadOrganization', 'ProgressCode', 'MaintenanceFrequencyCode', 'Abstract', 
-'DataCollectionInformation', 'DataProcessing', 'FundingSources', 'DataSourceURL', 
-'OtherDataSources', 'Citation', 'Licence', 'Disclaimer', 'TopicCategoryCode', 'Keywords', 
-'CreateTimestamp'
-
-filter: 'DOI', 'DatasetName', 'RegionId', 'Latitude', 'Longitude', 'CreateTimestamp'
-```
-     
-- **ds_locations**
-```R
-select: 'Id', 'DOI', 'NameId', 'Name', 'Latitude', 'Longitude', 
-'HorizontalCoordinateReferenceSystem', 'HorizontalAccuracyMeasure',
-'HorizontalAccuracyUnit', 'VerticalMeasure', 'VerticalUnit', 'MonitoringLocationType'
-
-filter: 'Id', 'DOI', 'MonitoringLocationType', 'ActivityStartYear', 
-'ActivityMediaName', 'CharacteristicName', 'RegionId', 'Name'
-
-```
-       
-- **ds_records**
-```R
-select: 'Id', 'DOI', 'DatasetName', 'MonitoringLocationID', 'MonitoringLocationName', 
-'MonitoringLocationLatitude','MonitoringLocationLongitude', 
-'MonitoringLocationHorizontalCoordinateReferenceSystem', 
-'MonitoringLocationHorizontalAccuracyMeasure', 'MonitoringLocationHorizontalAccuracyUnit',
-'MonitoringLocationVerticalMeasure', 'MonitoringLocationVerticalUnit', 'MonitoringLocationType', 
-'ActivityType', 'ActivityMediaName', 'ActivityStartDate', 'ActivityStartTime', 'ActivityEndDate', 
-'ActivityEndTime', 'ActivityDepthHeightMeasure', 'ActivityDepthHeightUnit', 
-'SampleCollectionEquipmentName', 'CharacteristicName', 'MethodSpeciation', 'ResultSampleFraction', 
-'ResultValue', 'ResultUnit', 'ResultValueType', 'ResultDetectionCondition', 
-'ResultDetectionQuantitationLimitMeasure','ResultDetectionQuantitationLimitUnit', 
-'ResultDetectionQuantitationLimitType','ResultStatusID', 'ResultComment', 
-'ResultAnalyticalMethodID', 'ResultAnalyticalMethodContext', 'ResultAnalyticalMethodName', 
-'AnalysisStartDate', 'AnalysisStartTime', 'AnalysisStartTimeZone', 'LaboratoryName', 
-'LaboratorySampleID'
-
-filter: 'DOI', 'MonitoringLocationType', 'ActivityStartDate', 'ActivityMediaName', 
-'CharacteristicName', 'RegionId'
-```
-
-
-
-- **ds_observations**
-```R
-select: 'Id', 'DOI', 'LocationId', 'ActivityType', 'ActivityStartDate', 'ActivityStartTime', 
-'ActivityEndDate', 'ActivityEndTime', 'ActivityDepthHeightMeasure', 'ActivityDepthHeightUnit', 
-'SampleCollectionEquipmentName', 'CharacteristicName', 'MethodSpeciation', 'ResultSampleFraction', 
-'ResultValue', 'ResultUnit', 'ResultValueType','ResultDetectionCondition', 
-'ResultDetectionQuantitationLimitUnit', 'ResultDetectionQuantitationLimitMeasure',
-'ResultDetectionQuantitationLimitType', 'ResultStatusId', 'ResultComment', 'ResultAnalyticalMethodId',
-'ResultAnalyticalMethodContext', 'ResultAnalyticalMethodName', 'AnalysisStartDate', 'AnalysisStartTime', 
-'AnalysisStartTimeZone', 'LaboratoryName', 'LaboratorySampleId', 'CreateTimestamp'
-
-filter: 'DOI', 'MonitoringLocationType', 'ActivityStartDate', 'ActivityMediaName', 
-'CharacteristicName', 'RegionId', 'LocationId'
-
-```
 
 ## Full examples
 Get the citation and licence for a dataset:
@@ -308,7 +248,7 @@ Example07 = ds_records(api_token=key,
 # Now, only pull data before 2015 
 
 Example08 = ds_records(api_token=key,
-                       filter = c("RegionId='hub.atlantic'","CharacteristicName='pH","ActivityStartDate<2015-01-01"),
+                       filter = c("RegionId='hub.atlantic'","CharacteristicName='pH","ActivityStartYear<2015"),
                        select = c('DOI','DatasetName','MonitoringLocationName','MonitoringLocationLatitude',
                                   'MonitoringLocationLongitude','ActivityStartDate','ResultValue','ResultUnit'),
                        top=1000)
@@ -317,14 +257,14 @@ Example08 = ds_records(api_token=key,
 
 Example09 = ds_observations(api_token=key,
                             select=c("ResultValue"), 
-                            filter=c("CharacteristicName = pH","ActivityStartDate>2019-01-01"),
+                            filter=c("CharacteristicName = pH","ActivityStartYear>2019"),
                             top=1000)
 
 # Use the count filter 
 
 Example10 = ds_observations(api_token=key,
                             select=c("ResultValue"), 
-                            filter=c("RegionId = 'hub.atlantic'","CharacteristicName = 'Ammonia'","ActivityStartDate>2019-01-01"),
+                            filter=c("RegionId = 'hub.atlantic'","CharacteristicName = 'Ammonia'","ActivityStartYear>2019"),
                             count = TRUE)
 
 ```
