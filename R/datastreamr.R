@@ -24,11 +24,11 @@
 #' \url{https://github.com/gordonfn/datastreamr}
 #'
 #' @examples
-#' ds_records("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-#' "ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate",top=1000)
+#' ds_records("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+#' "ActivityStartYear>2019"),top=1000)
 #'
-#' ds_records("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-#' "ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
+#' ds_records("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+#' "ActivityStartYear>2019"), count = TRUE)
 #' @export
 
 ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
@@ -80,11 +80,11 @@ ds_records <- function(api_token, select = NULL, filter = NULL, orderby = NULL, 
 #' \url{https://github.com/gordonfn/datastreamr}
 #'
 #' @examples
-#' ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-#' "ActivityStartTimeStamp>2019-01-01"),orderby = "ActivityStartDate",top=1000)
+#' ds_observations("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+#' "ActivityStartYear>2019"),top=1000)
 #'
-#' ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-#' "ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
+#' ds_observations("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+#' "ActivityStartYear>2019"), count = TRUE)
 #' @export
 
 ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
@@ -136,10 +136,10 @@ ds_observations <- function(api_token, select = NULL, filter = NULL, orderby = N
 #'
 #' @examples
 #' ds_locations("HJ6GY8H",select=c("Id","Name"), filter=c("CharacteristicName = pH",
-#' "RegionId=hub.atlantic"),orderby = "Name",top=1000)
+#' "RegionId=hub.atlantic"),top=1000)
 #'
 #' ds_locations("HJ6GY8H",select=c("Id","Name"), filter=c("CharacteristicName = pH",
-#' "RegionId=hub.atlantic"),orderby = "Name", count = TRUE)
+#' "RegionId=hub.atlantic"), count = TRUE)
 #' @export
 
 ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
@@ -191,10 +191,10 @@ ds_locations <- function(api_token, select = NULL, filter = NULL, orderby = NULL
 #'
 #' @examples
 #' ds_metadata("HJ6GY8H",select=c("Id","DataCollectionOrganization"), filter=c("CreateTimestamp>2019-01-01",
-#' "RegionId=hub.atlantic"),orderby = "Doi",top=1000)
+#' "RegionId=hub.atlantic"),top=1000)
 #'
 #' ds_metadata("HJ6GY8H",select=c("Id","DataCollectionOrganization"), filter=c("CreateTimestamp>2019-01-01",
-#' "RegionId=hub.atlantic"),orderby = "Doi", count = TRUE)
+#' "RegionId=hub.atlantic"), count = TRUE)
 #' @export
 
 ds_metadata <- function(api_token, select = NULL, filter = NULL, orderby = NULL, top = NULL, count = FALSE, skip = NULL, skiptoken = NULL) {
