@@ -45,9 +45,9 @@ and returns the desired data. Allows for an easy interface for calling the data
 from the observation end point. Also allows to return the count of this request.
 }
 \examples{
-ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-"ActivityStartTimeStamp>2019-01-01"),orderby = "ActivityStartDate",top=1000)
+ds_observations("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+"ActivityStartYear>2019"),top=1000)
 
-ds_observations("HJ6GY8H",select=c("Id","DatasetId"), filter=c("CharacteristicName = pH",
-"ActivityStartDate>2019-01-01"),orderby = "ActivityStartDate", count = TRUE)
+ds_observations("HJ6GY8H",select=c("Id","DatasetName"), filter=c("CharacteristicName = pH",
+"ActivityStartYear>2019"), count = TRUE)
 }

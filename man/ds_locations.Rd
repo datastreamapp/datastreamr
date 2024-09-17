@@ -46,8 +46,8 @@ from the observation end point. Also allows to return the count of this request.
 }
 \examples{
 ds_locations("HJ6GY8H",select=c("Id","Name"), filter=c("CharacteristicName = pH",
-"RegionId=hub.atlantic"),orderby = "Name",top=1000)
+"RegionId=hub.atlantic"),top=1000)
 
 ds_locations("HJ6GY8H",select=c("Id","Name"), filter=c("CharacteristicName = pH",
-"RegionId=hub.atlantic"),orderby = "Name", count = TRUE)
+"RegionId=hub.atlantic"), count = TRUE)
 }
