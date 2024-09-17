@@ -46,8 +46,8 @@ from the observation end point. Also allows to return the count of this request.
 }
 \examples{
 ds_metadata("HJ6GY8H",select=c("Id","DataCollectionOrganization"), filter=c("CreateTimestamp>2019-01-01",
-"RegionId=hub.atlantic"),orderby = "Doi",top=1000)
+"RegionId=hub.atlantic"),top=1000)
 
 ds_metadata("HJ6GY8H",select=c("Id","DataCollectionOrganization"), filter=c("CreateTimestamp>2019-01-01",
-"RegionId=hub.atlantic"),orderby = "Doi", count = TRUE)
+"RegionId=hub.atlantic"), count = TRUE)
 }
