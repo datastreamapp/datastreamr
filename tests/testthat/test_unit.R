@@ -34,7 +34,7 @@ mock_data_metadata <- list(
     Licence = "https://opendatacommons.org/licenses/by/1-0/", 
     Disclaimer = NA, 
     TopicCategoryCode = I(list("inlandWaters")), 
-    Keywords = I(list("Keyword1", "Keyword2", "Keyword3", "Keyword4")), 
+    Keywords = I(list("Keyword1")), 
     CreateTimestamp = "2024-06-16T07:16:43.489Z", 
     PublishedTimestamp = "2024-06-19T07:16:43.488Z"
   )

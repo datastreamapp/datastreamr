@@ -102,7 +102,7 @@ fetchData <- function(fetchOptions) {
   for (options in fetchOptions) {
     response <- fetchDataRateLimited(options)
     content <- content(response, as = "parsed", type = "application/json")
-    
+
     # Check if the response contains a "value" that is a list (records) or scalar (count)
     if (is.list(content$value)) {
       result <- c(result, content$value)
@@ -117,7 +117,8 @@ fetchData <- function(fetchOptions) {
       options$url <- next_link
       response <- fetchDataRateLimited(options)
       content <- content(response, as = "parsed", type = "application/json")
-      
+      next_link <- content$`@odata.nextLink`
+
       if (is.list(content$value)) {
         result <- c(result, content$value)
       }
