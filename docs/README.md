@@ -148,7 +148,7 @@ All of the functions above accept query parameters. The ones supported are:
   - Example: `select="DatasetName,Abstract"`
   - Default: All columns available.
  
-Note: $`\color{blue}{\text{Below there is a list of allowed `select` values to choose from for each function}}`$
+$`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for available select fields
 
 ##
  - **filter:** *A list of conditions to filter by*  <br/>
@@ -170,7 +170,7 @@ Note: $`\color{blue}{\text{Below there is a list of allowed `select` values to c
         - **Countries**: `admin.2.{ca}`
         - **Provinces/Territories**: `admin.4.ca.{ab,bc,mb,nb,nl,ns,nt,nu,on,pe,qc,sk,yt}`
           
-Note: $`\color{blue}{\text{Below there is a list of allowed `filter` values to choose from for each function}}`$
+$`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for available filter fields
     
 ##
 - **top:** *Number of rows to return* <br/>
@@ -189,7 +189,9 @@ Note: $`\color{blue}{\text{Below there is a list of allowed `filter` values to c
 
   
 ## Allowed Values
-The allowed select and filter options for each of the functions are below. 
+The allowed `select` and `filter` options for each of the functions are listed **<a href="https://github.com/datastreamapp/api-docs?tab=readme-ov-file#endpoints">HERE</a>**. 
+
+
 
 $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource is the "allowed values" tab of our <a href="https://datastreamorg.sharepoint.com/:x:/s/Datastream/EaqcNGHom7BFlRi6bRY4VDoBy6ECq6v3bbUyeb0B3S3HGg?e=75aBTl"> upload template </a>. This will give you available strings for: 
 * `MonitoringLocationType`
