@@ -16,5 +16,10 @@ A dataframe of record results
 \code{records} Retrieves record data from the API.
 }
 \examples{
+\dontrun{
+library(datastreamr)
+#setAPIKey("your_api_key_here")
+
 records(list(`$select` = "Id, DatasetId"))
+}
 }

@@ -16,5 +16,10 @@ A dataframe of observation results
 \code{observations} Retrieves observation data from the API.
 }
 \examples{
+\dontrun{
+library(datastreamr)
+#setAPIKey("your_api_key_here")
+
 observations(list(`$select` = "Id, DatasetId"))
+}
 }

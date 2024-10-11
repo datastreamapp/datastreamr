@@ -16,5 +16,10 @@ A dataframe of location results
 \code{locations} Retrieves location data from the API.
 }
 \examples{
+\dontrun{
+library(datastreamr)
+#setAPIKey("your_api_key_here")
+
 locations(list(`$select` = "Id, Name"))
+}
 }

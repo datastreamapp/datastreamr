@@ -16,5 +16,10 @@ A dataframe of metadata results
 \code{metadata} Retrieves metadata from the API.
 }
 \examples{
+\dontrun{
+library(datastreamr)
+#setAPIKey("your_api_key_here")
+
 metadata(list(`$select` = "Id, DatasetName"))
+}
 }
