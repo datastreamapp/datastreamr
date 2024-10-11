@@ -13,17 +13,19 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     pkg-config \
     libharfbuzz-dev \
-    libfribidi-dev \    
+    libfribidi-dev \
     git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install required R packages
-RUN R -e "install.packages(c('httr', 'jsonlite', 'testthat', 'stringr', 'httptest', 'dplyr', 'tidyr', 'roxygen2'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('dplyr', 'httr', 'tibble', 'jsonlite', 'rmarkdown', 'testthat', 'tidyselect' ,'withr'), repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/')"
 
 # Copy your R script and test script into the Docker image
 COPY R/datastreamr.R /datastreamr/R/datastreamr.R
+COPY R/util.R /datastreamr/R/util.R
+COPY R/fetch.R /datastreamr/R/fetch.R
 COPY tests /datastreamr/tests
 
 # Set the working directory
