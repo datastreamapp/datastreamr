@@ -2,8 +2,10 @@ Package: datastreamr
 Title: An R Wrapper for DataStream's Public API
 Version: 1.5.0
 Date: 2024-06-26
-Author: Kiril Kirov <kiril.kirov@strato.earth>
-Maintainer: Kiril Kirov <kiril.kirov@strato.earth>
+Authors@R: c(
+        person("Kiril", "Kirov", email = "kiril.kirov@strato.earth", role = c("aut")),
+        person("Patrick", "Schaefer", email = "patrick@datastream.org", role = c("aut", "cre"))
+  )
 URL: https://github.com/datastreamapp/datastreamr
 BugReports: https://github.com/datastreamapp/datastreamr/issues 
 Description: This package allows for users familiar with R to call DataStream's public API
@@ -26,3 +28,4 @@ Suggests:
     tidyselect,
     withr
 Config/testthat/edition: 3
+
