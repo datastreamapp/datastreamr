@@ -1,61 +1,57 @@
-library(testthat)
-library(jsonlite)
-
-source("test_helper.R")
 
 test_that("fetch observations for location and DOI", {
   qs <- list(
     `$select` = "Id, DOI, LocationId, CharacteristicName, ActivityType, ActivityMediaName, ActivityStartDate, ActivityStartTime, ActivityEndDate, ActivityEndTime, ActivityDepthHeightMeasure, ActivityDepthHeightUnit, SampleCollectionEquipmentName, MethodSpeciation, ResultSampleFraction, ResultValue, ResultUnit, ResultValueType, ResultDetectionCondition, ResultDetectionQuantitationLimitUnit, ResultDetectionQuantitationLimitMeasure, ResultDetectionQuantitationLimitType, ResultStatusID, ResultComment, ResultAnalyticalMethodID, ResultAnalyticalMethodContext, ResultAnalyticalMethodName, AnalysisStartDate, AnalysisStartTime, AnalysisStartTimeZone, LaboratoryName, LaboratorySampleID",
-    `$filter` = "LocationId eq '406583' and DOI eq '10.25976/4mf6-k783'"
+    `$filter` = "LocationId eq '3271776' and DOI eq '10.25976/7cny-7h34'"
   )
-  
+
   fetch_and_test_data(observations, qs)
 })
 
 test_that("fetch observations for DOI and all locations", {
   qs <- list(
     `$select` = "Id, DOI, LocationId, CharacteristicName, ActivityType, ActivityMediaName, ActivityStartDate, ActivityStartTime, ActivityEndDate, ActivityEndTime, ActivityDepthHeightMeasure, ActivityDepthHeightUnit, SampleCollectionEquipmentName, MethodSpeciation, ResultSampleFraction, ResultValue, ResultUnit, ResultValueType, ResultDetectionCondition, ResultDetectionQuantitationLimitUnit, ResultDetectionQuantitationLimitMeasure, ResultDetectionQuantitationLimitType, ResultStatusID, ResultComment, ResultAnalyticalMethodID, ResultAnalyticalMethodContext, ResultAnalyticalMethodName, AnalysisStartDate, AnalysisStartTime, AnalysisStartTimeZone, LaboratoryName, LaboratorySampleID",
-    `$filter` = "DOI eq '10.25976/4mf6-k783'"
+    `$filter` = "DOI eq '10.25976/7cny-7h34'"
   )
-  
+
   fetch_and_test_data(observations, qs)
 })
 
 test_that("fetch records for location and DOI", {
   qs <- list(
     `$select` = "Id, DOI, DatasetName, MonitoringLocationID, MonitoringLocationName, MonitoringLocationLatitude, MonitoringLocationLongitude, MonitoringLocationHorizontalCoordinateReferenceSystem, MonitoringLocationHorizontalAccuracyMeasure, MonitoringLocationHorizontalAccuracyUnit, MonitoringLocationVerticalMeasure, MonitoringLocationVerticalUnit, MonitoringLocationType, ActivityType, ActivityMediaName, ActivityStartDate, ActivityStartTime, ActivityEndDate, ActivityEndTime, ActivityDepthHeightMeasure, ActivityDepthHeightUnit, SampleCollectionEquipmentName, CharacteristicName, MethodSpeciation, ResultSampleFraction, ResultValue, ResultUnit, ResultValueType, ResultDetectionCondition, ResultDetectionQuantitationLimitMeasure, ResultDetectionQuantitationLimitUnit, ResultDetectionQuantitationLimitType, ResultStatusID, ResultComment, ResultAnalyticalMethodID, ResultAnalyticalMethodContext, ResultAnalyticalMethodName, AnalysisStartDate, AnalysisStartTime, AnalysisStartTimeZone, LaboratoryName, LaboratorySampleID",
-    `$filter` = "LocationId eq '5717' and DOI eq '10.25976/4mf6-k783'"
+    `$filter` = "LocationId eq '3271776' and DOI eq '10.25976/7cny-7h34'"
   )
-  
+
   fetch_and_test_data(records, qs)
 })
 
 test_that("fetch records for DOI and all locations", {
   qs <- list(
     `$select` = "Id, DOI, DatasetName, MonitoringLocationID, MonitoringLocationName, MonitoringLocationLatitude, MonitoringLocationLongitude, MonitoringLocationHorizontalCoordinateReferenceSystem, MonitoringLocationHorizontalAccuracyMeasure, MonitoringLocationHorizontalAccuracyUnit, MonitoringLocationVerticalMeasure, MonitoringLocationVerticalUnit, MonitoringLocationType, ActivityType, ActivityMediaName, ActivityStartDate, ActivityStartTime, ActivityEndDate, ActivityEndTime, ActivityDepthHeightMeasure, ActivityDepthHeightUnit, SampleCollectionEquipmentName, CharacteristicName, MethodSpeciation, ResultSampleFraction, ResultValue, ResultUnit, ResultValueType, ResultDetectionCondition, ResultDetectionQuantitationLimitMeasure, ResultDetectionQuantitationLimitUnit, ResultDetectionQuantitationLimitType, ResultStatusID, ResultComment, ResultAnalyticalMethodID, ResultAnalyticalMethodContext, ResultAnalyticalMethodName, AnalysisStartDate, AnalysisStartTime, AnalysisStartTimeZone, LaboratoryName, LaboratorySampleID",
-    `$filter` = "DOI eq '10.25976/4mf6-k783'"
+    `$filter` = "DOI eq '10.25976/7cny-7h34'"
   )
-  
+
   fetch_and_test_data(records, qs)
 })
 
 test_that("fetch location by Id", {
   qs <- list(
     `$select` = "Id, DOI, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
-    `$filter` = "LocationId eq '5717'",
+    `$filter` = "LocationId eq '3271776'",
     `$top` = "10"
   )
-  
+
   fetch_and_test_data(locations, qs)
 })
 
 test_that("fetch location for DOI with top", {
   qs <- list(
     `$select` = "Id, DOI, Name, Latitude, Longitude, HorizontalCoordinateReferenceSystem, HorizontalAccuracyMeasure, HorizontalAccuracyUnit, VerticalMeasure, VerticalUnit, MonitoringLocationType, LatitudeNormalized, LongitudeNormalized",
-    `$filter` = "DOI eq '10.25976/4mf6-k783'",
+    `$filter` = "DOI eq '10.25976/7cny-7h34'",
     `$top` = "10"
   )
-  
+
   fetch_and_test_data(locations, qs)
 })
 
@@ -64,30 +60,27 @@ test_that("fetch metadata by Id", {
     `$select` = "Id, DOI, Version, DatasetName, DataStewardEmail, DataCollectionOrganization, DataUploadOrganization, ProgressCode, MaintenanceFrequencyCode, Abstract, DataCollectionInformation, DataProcessing, FundingSources, DataSourceURL, OtherDataSources, Citation, Licence, Disclaimer, TopicCategoryCode, Keywords, CreateTimestamp, PublishedTimestamp",
     `$filter` = "Id eq '0456bedd-cd0c-44ce-8f8d-da0afbb6694b'"
   )
-  
+
   fetch_and_test_data(metadata, qs)
 })
 
 test_that("fetch metadata for DOI with top", {
   qs <- list(
     `$select` = "Id, DOI, Version, DatasetName, DataStewardEmail, DataCollectionOrganization, DataUploadOrganization, ProgressCode, MaintenanceFrequencyCode, Abstract, DataCollectionInformation, DataProcessing, FundingSources, DataSourceURL, OtherDataSources, Citation, Licence, Disclaimer, TopicCategoryCode, Keywords, CreateTimestamp, PublishedTimestamp",
-    `$filter` = "DOI eq '10.25976/4mf6-k783'",
+    `$filter` = "DOI eq '10.25976/7cny-7h34'",
     `$top` = "10"
   )
-  
+
   fetch_and_test_data(metadata, qs)
 })
 
 test_that("fetch All metadata", {
-
   qs <- list()
 
   fetch_and_test_data(metadata, qs)
 })
 
-
 test_that("fetch Metadata count", {
-  
   qs <- list(
     `$count` = "true"
   )
@@ -102,7 +95,7 @@ test_that("fetch Metadata count", {
 #     `$select` = "",
 #     `$filter` = ""
 #   )
-  
+
 #   fetch_and_test_data(metadata, qs)
 # })
 
@@ -120,7 +113,7 @@ test_that("fetch Metadata count", {
 #     `$select` = "DOI, DataStewardEmail",
 #     `$filter` = "RegionId eq 'hub.greatlakes'"
 #   )
-  
+
 #   fetch_and_test_data(metadata, qs)
 # })
 
@@ -130,7 +123,7 @@ test_that("fetch Metadata count", {
 #     `$filter` = "RegionId eq 'admin.4.ca.on'",
 #     `$top` = "1000"
 #   )
-  
+
 #   fetch_and_test_data(locations, qs)
 # })
 
@@ -140,7 +133,7 @@ test_that("fetch Metadata count", {
 #     `$select` = "Name, Latitude, Longitude",
 #     `$filter` = "DOI eq '10.25976/1q5q-zy55'"
 #   )
-  
+
 #   fetch_and_test_data(locations, qs)
 # })
 
@@ -149,7 +142,7 @@ test_that("fetch Metadata count", {
 #     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
 #     `$top` = "1000"
 #   )
-  
+
 #   fetch_and_test_data(records, qs)
 # })
 
@@ -160,7 +153,7 @@ test_that("fetch Metadata count", {
 #     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
 #     `$top` = "1000"
 #   )
-  
+
 #   fetch_and_test_data(records, qs)
 # })
 
@@ -170,7 +163,7 @@ test_that("fetch Metadata count", {
 #     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH' and ActivityStartYear lt '2015'",
 #     `$top` = "1000"
 #   )
-  
+
 #   fetch_and_test_data(records, qs)
 # })
 
@@ -180,7 +173,7 @@ test_that("fetch Metadata count", {
 #     `$filter` = "CharacteristicName eq 'pH' and ActivityStartYear gt '2019'",
 #     `$top` = "1000"
 #   )
-  
+
 #   fetch_and_test_data(observations, qs)
 # })
 
@@ -190,6 +183,6 @@ test_that("fetch Metadata count", {
 #     `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'Ammonia' and ActivityStartYear gt '2019'",
 #     `$count` = "true"
 #   )
-  
+
 #   fetch_and_test_data(observations, qs)
 # })
