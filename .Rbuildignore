@@ -11,3 +11,4 @@ api_key.txt
 docs
 generate_docs.R
 generate_docs_for_file.R
+^LICENSE\.md$
