@@ -61,7 +61,7 @@ fetchDataRateLimited <- function(fetchOptions) {
 #'  )
 #'  }
 fetchData <- function(fetchOptions) {
-  is_verbose_mode <- getOption("datastream_quite", FALSE)
+  is_verbose_mode <- !getOption("datastream_quite", TRUE)
 
   if (!is.list(fetchOptions)) fetchOptions <- list(fetchOptions)
 
