@@ -6,6 +6,7 @@ set_default_options <- function() {
   options(datastream_apiKey = Sys.getenv("DATASTREAM_API_KEY")) # API key from environment variable
   options(datastream_rateLimitTimestamp = Sys.time()) # Rate limit timestamp initialization
   options(datastream_rateLimit = 0.5) # Rate limit duration in seconds
+  options(datastream_quite = FALSE)
   options(datastream_headers = c( # Base headers for requests
     Accept = "application/vnd.api+json",
     "Accept-Encoding" = "br, gzip, deflate"

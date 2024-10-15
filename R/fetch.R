@@ -61,10 +61,13 @@ fetchDataRateLimited <- function(fetchOptions) {
 #'  )
 #'  }
 fetchData <- function(fetchOptions) {
+  is_verbose_mode <- getOption("datastream_quite", FALSE)
+
   if (!is.list(fetchOptions)) fetchOptions <- list(fetchOptions)
 
   result <- list()
   for (options in fetchOptions) {
+    if (is_verbose_mode) message(options$url)
     response <- fetchDataRateLimited(options)
     cntnt <- httr::content(response, as = "parsed", type = "application/json")
 
@@ -80,9 +83,14 @@ fetchData <- function(fetchOptions) {
 
     while (!is.null(next_link)) {
       options$url <- next_link
+      if (is_verbose_mode) message(options$url)
       response <- fetchDataRateLimited(options)
-      cnt <- httr::content(response, as = "parsed", type = "application/json")
+      cntnt <- httr::content(response, as = "parsed", type = "application/json")
       next_link <- cntnt$`@odata.nextLink`
+
+      if (!is.null(next_link) && (next_link == options$url)) {
+        stop(paste("api error at:",next_link))
+      }
 
       if (is.list(cntnt$value)) {
         result <- c(result, cntnt$value)
