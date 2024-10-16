@@ -127,15 +127,20 @@ mock_data_locations <- list(
 create_mock_response <- function(data) {
   response <- list(
     status_code = 200,
-    headers = list(`content-type` = "application/json"),
-    content = charToRaw(jsonlite::toJSON(list(value = data), auto_unbox = TRUE))
+    headers = as.list(getOption("datastream_headers")),
+    body = charToRaw(jsonlite::toJSON(list(value = data), auto_unbox = TRUE))
   )
-  class(response) <- "response"
+  class(response) <- "httr2_response"
   return(response)
+}
+
+translate_mock_json <- function(data) {
+  jsonlite::fromJSON(rawToChar(data$body),simplifyVector =F)
 }
 
 # Mock function to replace the actual GET call
 mock_get <- function(url, ...) {
+  url<-url$url
   if (grepl("Observations", url)) {
     return(create_mock_response(mock_data_observations))
   } else if (grepl("Records", url)) {
@@ -153,11 +158,13 @@ mock_get <- function(url, ...) {
 fetch_and_test_data_mock <- function(fetch_function, qs, mock_data) {
   skip_if_not_installed("jsonlite")
 
-  local_mocked_bindings(GET = mock_get,.package="httr")
+  local_mocked_bindings(req_perform = mock_get,.package="httr2")
+  local_mocked_bindings(resp_body_json = translate_mock_json,.package="httr2")
 
   result <- fetch_function(qs)
   expect_s3_class(result, "data.frame")
   df_mock_data <- dplyr::bind_rows(mock_data)
+  expect_equal(ncol(result), ncol(df_mock_data))
   expect_equal(nrow(result), nrow(df_mock_data))
   expect_equal(result$Id, df_mock_data$Id)
 }

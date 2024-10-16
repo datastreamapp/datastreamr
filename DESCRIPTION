@@ -19,7 +19,7 @@ RoxygenNote: 7.3.2
 Depends: R (>= 4.4.0)
 Imports:
     dplyr,
-    httr (>= 1.4.1),
+    httr2,
     tibble
 Suggests: 
     jsonlite,

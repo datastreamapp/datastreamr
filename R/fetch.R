@@ -29,16 +29,24 @@ fetchDataRateLimited <- function(fetchOptions) {
 
   headers <- unlist(c(getOption("datastream_headers"), `x-api-key` = getOption("datastream_apiKey", "")), use.names = TRUE)
 
-  response <- httr::GET(fetchOptions$url, httr::add_headers(.headers = headers), query = fetchOptions$qs)
+  rspns <- httr2::request(fetchOptions$url)
+  rspns <- httr2::req_headers(rspns, !!!headers)
+  rspns <- httr2::req_url_query(rspns, !!!fetchOptions$qs)
 
-  if (response$status_code == 429) {
+  cntnt <- httr2::req_perform(rspns)
+
+  status <- httr2::resp_status(cntnt)
+
+  if (status == 429) {
     Sys.sleep(1) # Retry after brief sleep on rate limit
     return(fetchDataRateLimited(fetchOptions))
-  } else if (response$status_code >= 400) {
-    stop("Error in fetch: ", response$status_code)
+  } else if (status >= 400) {
+    stop("Error in fetch: ", status)
   }
 
-  return(response)
+  cntnt <- httr2::resp_body_json(cntnt)
+
+  return(cntnt)
 }
 
 #' Fetch Data
@@ -68,8 +76,7 @@ fetchData <- function(fetchOptions) {
   result <- list()
   for (options in fetchOptions) {
     if (is_verbose_mode) message(options$url)
-    response <- fetchDataRateLimited(options)
-    cntnt <- httr::content(response, as = "parsed", type = "application/json")
+    cntnt <- fetchDataRateLimited(options)
 
     # Check if the response contains a "value" that is a list (records) or scalar (count)
     if (is.list(cntnt$value)) {
@@ -84,8 +91,7 @@ fetchData <- function(fetchOptions) {
     while (!is.null(next_link)) {
       options$url <- next_link
       if (is_verbose_mode) message(options$url)
-      response <- fetchDataRateLimited(options)
-      cntnt <- httr::content(response, as = "parsed", type = "application/json")
+      cntnt <- fetchDataRateLimited(options)
       next_link <- cntnt$`@odata.nextLink`
 
       if (!is.null(next_link) && (next_link == options$url)) {
