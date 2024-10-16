@@ -1,8 +1,14 @@
 \.gitignore
 \.Rbuildignore
 .*\.tar\.gz
-\.Rbuildignore.Rcheck
-datastreamr.Rcheck
+\.Rcheck
 ^.*\.Rproj$
 ^\.Rproj\.user$
 \.Rhistory
+.github
+Dockerfile
+api_key.txt
+docs
+generate_docs.R
+generate_docs_for_file.R
+^LICENSE\.md$
