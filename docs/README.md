@@ -55,7 +55,7 @@ The API returns the URL for a dataset's licence, these should be mapped to the f
 ## The Functions 
 The following functions are used to call to the DataStream API and pull desired information.  
 
-### ds_metadata():  
+### metadata():  
 **Description** 
  <br/>
 Pulls only the dataset level metadata information including dataset name, citation, licence, abstract, etc. 
@@ -63,17 +63,19 @@ Pulls only the dataset level metadata information including dataset name, citati
   <br/>
 **Usage**
 ```R
-ds_metadata( 
-  api_token, 
-  select = NULL, 
-  filter = NULL,  
-  top = NULL, 
-  count = FALSE 
+metadata(list(`$select` = "Id, DatasetName"))
+metadata( 
+  list(
+    `$select` = NULL,
+    `$filter` = NULL,
+    `$top` = NULL,
+    `$count` = "false"
+  )
 )
 ```
 
   
-### ds_locations():  
+### locations():  
 **Description** 
  <br/>
 Pulls only the location data including Location ID, Location Name, Latitude, and Longitude.
@@ -81,52 +83,55 @@ Pulls only the location data including Location ID, Location Name, Latitude, and
   <br/>
 **Usage**
 ```R
-ds_locations( 
-  api_token, 
-  select = NULL, 
-  filter = NULL, 
-  top = NULL, 
-  count = FALSE
+locations( 
+  list(
+    `$select` = NULL,
+    `$filter` = NULL,
+    `$top` = NULL,
+    `$count` = "false"
+  )
 )
 ```
   
-### ds_records(): 
+### records(): 
 **Description** 
  <br/>
 Pulls data formatted the same as the downloaded DataStream CSV’s including all columns listed in the DataStream <a href="https://github.com/datastreamapp/schema">schema</a> .
  <br/>
   <br/>
   **Usage**
-* This function will take longer than `ds_observations`, but provides all available columns in one request. <br/>
+* This function will take longer than `observations`, but provides all available columns in one request. <br/>
 * Use this function if you aim to pull all location and parameter data in one call  <br/>
 
 ```R
-ds_records( 
-  api_token, 
-  select = NULL, 
-  filter = NULL,  
-  top = NULL, 
-  count = FALSE
+records( 
+  list(
+    `$select` = NULL,
+    `$filter` = NULL,
+    `$top` = NULL,
+    `$count` = "false"
+  )
 )
 ```
   
-### ds_observations():  
+### observations():  
 **Description** 
  <br/>
-Pulls data in a condensed format that must be joined with other endpoints to create a full dataset with all the DataStream columns. Specifically, location rows are not pulled, instead `LocationId` is pulled for each observation and then can be used in combination with `ds_locations()`. 
+Pulls data in a condensed format that must be joined with other endpoints to create a full dataset with all the DataStream columns. Specifically, location rows are not pulled, instead `LocationId` is pulled for each observation and then can be used in combination with `locations()`. 
  <br/>
   <br/>
   **Usage**
-* This function will be quicker than `ds_records`, but if location specifics are needed, needs to be paired with `ds_locations()` <br/>
-* Use this function either if you are uninterested in specific location coordinates, or in combination with `ds_locations()` when you plan to pull millions of rows of data <br/>
+* This function will be quicker than `records`, but if location specifics are needed, needs to be paired with `locations()` <br/>
+* Use this function either if you are uninterested in specific location coordinates, or in combination with `locations()` when you plan to pull millions of rows of data <br/>
 
 ```R
-ds_observations( 
-  api_token, 
-  select = NULL, 
-  filter = NULL,  
-  top = NULL, 
-  count = FALSE
+observations( 
+  list(
+    `$select` = NULL,
+    `$filter` = NULL,
+    `$top` = NULL,
+    `$count` = "false"
+  )
 )
 ```
 
@@ -140,7 +145,7 @@ All of the functions above accept query parameters. The ones supported are:
 - **select:** *A list of allowable columns to return* <br/>
 
   - Fields to be selected are entered as a list.
-  - Example: `select=c("DatasetName","Abstract")`
+  - Example: `select="DatasetName,Abstract"`
   - Default: All columns available.
  
 $`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for available select fields
@@ -148,11 +153,18 @@ $`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for ava
 ##
  - **filter:** *A list of conditions to filter by*  <br/>
  
-   - Available filters: `=, <, >, <=, >=, !=`
-   - Grouping: `filter=c("CharacteristicName=Dissolved oxygen saturation", "DOI='10.25976/n02z-mm23'")`
-   - Temporal (Dataset creation): `filter=c("CreateTimestamp>2020-03-23")`
-   - Temporal (Data date-range): `filter=c("ActivityStartYear<1990")`
-   - Spatial: `filter=c(RegionId=hub.atlantic)`
+   - Available operators: 
+    - eq: Used for exact matches.
+    - ne: Used for not equal to.
+    - gt: Used for greater than.
+    - lt: Used for less than.
+    - ge: Used for greater than or equal to.
+    - le: Used for less than or equal to.
+    - and: Used to combine multiple filters with an “and” condition.
+   - Grouping: `filter="CharacteristicName eq 'Dissolved oxygen saturation' and DOI eq '10.25976/n02z-mm23'"`
+   - Temporal (Dataset creation): `filter="CreateTimestamp gt 2020-03-23"`
+   - Temporal (Data date-range): `filter="ActivityStartYear gt '2019'"`
+   - Spatial: `filter=RegionId eq 'hub.atlantic'`
         - `RegionId` Values (these values are subject to change):
         - **DataStream Hubs**: `hub.{atlantic,lakewinnipeg,mackenzie,greatlakes,pacific }`
         - **Countries**: `admin.2.{ca}`
@@ -169,10 +181,8 @@ $`\color{blue}{\text{Note}}`$: refer to **Allowed Values** section below for ava
 - **count:** *When TRUE, returns number of observations rather than the data itself* <br/>
 
   - Return only the count for the request. When the value is large enough it becomes an estimate (~0.0005% accurate)
-  - Example: `count=TRUE`
-  - Default: `FALSE`
- 
-  ##
+  - Example: `count=true`
+  - Default: `false`
   
   ### Performance Tips
     - Use `select` to request only the parameters you need. This will decrease the amount of data needed to process and transfer.
@@ -190,81 +200,195 @@ $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource
 
   ##
 
+
+- **metadata**
+ ```R
+select: 'DOI', 'Version', 'DatasetName', 'DataStewardEmail', 'DataCollectionOrganization', 
+'DataUploadOrganization', 'ProgressCode', 'MaintenanceFrequencyCode', 'Abstract', 
+'DataCollectionInformation', 'DataProcessing', 'FundingSources', 'DataSourceURL', 
+'OtherDataSources', 'Citation', 'Licence', 'Disclaimer', 'TopicCategoryCode', 'Keywords', 
+'CreateTimestamp'
+
+filter: 'DOI', 'DatasetName', 'RegionId', 'Latitude', 'Longitude', 'CreateTimestamp'
+```
+     
+- **locations**
+```R
+select: 'Id', 'DOI', 'NameId', 'Name', 'Latitude', 'Longitude', 
+'HorizontalCoordinateReferenceSystem', 'HorizontalAccuracyMeasure',
+'HorizontalAccuracyUnit', 'VerticalMeasure', 'VerticalUnit', 'MonitoringLocationType'
+
+filter: 'Id', 'DOI', 'MonitoringLocationType', 'ActivityStartYear', 
+'ActivityMediaName', 'CharacteristicName', 'RegionId', 'Name'
+
+```
+       
+- **records**
+```R
+select: 'Id', 'DOI', 'DatasetName', 'MonitoringLocationID', 'MonitoringLocationName', 
+'MonitoringLocationLatitude','MonitoringLocationLongitude', 
+'MonitoringLocationHorizontalCoordinateReferenceSystem', 
+'MonitoringLocationHorizontalAccuracyMeasure', 'MonitoringLocationHorizontalAccuracyUnit',
+'MonitoringLocationVerticalMeasure', 'MonitoringLocationVerticalUnit', 'MonitoringLocationType', 
+'ActivityType', 'ActivityMediaName', 'ActivityStartDate', 'ActivityStartTime', 'ActivityEndDate', 
+'ActivityEndTime', 'ActivityDepthHeightMeasure', 'ActivityDepthHeightUnit', 
+'SampleCollectionEquipmentName', 'CharacteristicName', 'MethodSpeciation', 'ResultSampleFraction', 
+'ResultValue', 'ResultUnit', 'ResultValueType', 'ResultDetectionCondition', 
+'ResultDetectionQuantitationLimitMeasure','ResultDetectionQuantitationLimitUnit', 
+'ResultDetectionQuantitationLimitType','ResultStatusID', 'ResultComment', 
+'ResultAnalyticalMethodID', 'ResultAnalyticalMethodContext', 'ResultAnalyticalMethodName', 
+'AnalysisStartDate', 'AnalysisStartTime', 'AnalysisStartTimeZone', 'LaboratoryName', 
+'LaboratorySampleID'
+
+filter: 'DOI', 'MonitoringLocationType', 'ActivityStartDate', 'ActivityMediaName', 
+'CharacteristicName', 'RegionId'
+```
+
+
+
+- **observations**
+```R
+select: 'Id', 'DOI', 'LocationId', 'ActivityType', 'ActivityStartDate', 'ActivityStartTime', 
+'ActivityEndDate', 'ActivityEndTime', 'ActivityDepthHeightMeasure', 'ActivityDepthHeightUnit', 
+'SampleCollectionEquipmentName', 'CharacteristicName', 'MethodSpeciation', 'ResultSampleFraction', 
+'ResultValue', 'ResultUnit', 'ResultValueType','ResultDetectionCondition', 
+'ResultDetectionQuantitationLimitUnit', 'ResultDetectionQuantitationLimitMeasure',
+'ResultDetectionQuantitationLimitType', 'ResultStatusId', 'ResultComment', 'ResultAnalyticalMethodId',
+'ResultAnalyticalMethodContext', 'ResultAnalyticalMethodName', 'AnalysisStartDate', 'AnalysisStartTime', 
+'AnalysisStartTimeZone', 'LaboratoryName', 'LaboratorySampleId', 'CreateTimestamp'
+
+filter: 'DOI', 'MonitoringLocationType', 'ActivityStartDate', 'ActivityMediaName', 
+'CharacteristicName', 'RegionId', 'LocationId'
+
+```
+
+## Authentication
+By default the environment variable "DATASTREAM_API_KEY" is used for setting the API key. The API key can also be set by:
+```R
+setAPIKey('xxxxxxxxxx') 
+```
+
 ## Full examples
 Get the citation and licence for a dataset:
 ```R
-ds_metadata(api_token,filter=c("DOI='10.25976/1q5q-zy55'"), select=c("DOI","DatasetName","Licence","Citation","Version"))
+metadata(api_token,filter=c("DOI='10.25976/1q5q-zy55'"), select=c("DOI","DatasetName","Licence","Citation","Version"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "",
+    `$filter` = ""
+  )
+metadata(qs)
 ```
 
 Get all `pH` observations in `Alberta`:
 ```R
-ds_records(api_token,filter=c("CharacteristicName='pH'", "RegionId='admin.4.ca.ab'"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "Id, DOI, LocationId, CharacteristicName, ActivityType, ActivityMediaName, ActivityStartDate, ActivityStartTime, ActivityEndDate, ActivityEndTime, ActivityDepthHeightMeasure, ActivityDepthHeightUnit, SampleCollectionEquipmentName, MethodSpeciation, ResultSampleFraction, ResultValue, ResultUnit, ResultValueType, ResultDetectionCondition, ResultDetectionQuantitationLimitUnit, ResultDetectionQuantitationLimitMeasure, ResultDetectionQuantitationLimitType, ResultStatusID, ResultComment, ResultAnalyticalMethodID, ResultAnalyticalMethodContext, ResultAnalyticalMethodName, AnalysisStartDate, AnalysisStartTime, AnalysisStartTimeZone, LaboratoryName, LaboratorySampleID",
+    `$filter` = "CharacteristicName eq 'pH' and RegionId eq 'admin.4.ca.ab'"
+  )
+observations(qs)
 ```
 
 More Examples: 
 
 ```R
 # Pull all metadata for all datasets in the Atlantic DS Hub 
-
-Example01 = ds_metadata(api_token=key,
-                        filter=c("RegionId='hub.atlantic'"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "",
+    `$filter` = ""
+  )
+Example01 = metadata(qs)
 
 # Pull all metadata for all datasets in BC
-
-Example02 = ds_metadata(api_token=key,
-                        filter=c("RegionId='admin.4.ca.bc'"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$filter` = "RegionId eq 'admin.4.ca.bc'"
+  )
+Example02 = metadata(qs)
 
 # Pull only the DOI's and contact emails for all datasets in the Great Lakes Hub 
-
-Example03 = ds_metadata(api_token=key,
-                        filter=c("RegionId='hub.greatlakes'"),
-                        select=c('DOI','DataStewardEmail'))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "DOI, DataStewardEmail",
+    `$filter` = "RegionId eq 'hub.greatlakes'"
+  )
+Example03 = metadata(qs)
 
 # Pull all location information for sites in Ontario 
-
-Example04 = ds_locations(api_token=key,
-                         filter=c("RegionId='admin.4.ca.on'"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$filter` = "RegionId eq 'admin.4.ca.on'",
+    `$top` = "1000"
+  )
+Example04 = locations(qs)
 
 # Pull the site names and lat/lon coordinates for a particular dataset 
-
-Example05 = ds_locations(api_token=key,
-                         filter=c("DOI='10.25976/1q5q-zy55'"),
-                         select=c("Name","Latitude","Longitude"))
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "Name, Latitude, Longitude",
+    `$filter` = "DOI eq '10.25976/1q5q-zy55'"
+  )
+Example05 = locations(qs)
 
 # Pull all ph data available in the Atlantic DS Hub (only pulling top 1000)
-
-Example06 = ds_records(api_token=key,
-                       filter = c("RegionId='hub.atlantic'","CharacteristicName='pH"),
-                       top=1000)
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
+    `$top` = "1000"
+  )
+Example06 = records(qs)
 
 # Now, only select desired columns 
-
-Example07 = ds_records(api_token=key,
-                       filter = c("RegionId='hub.atlantic'","CharacteristicName='pH"),
-                       select = c('DOI','DatasetName','MonitoringLocationName','MonitoringLocationLatitude',
-                                  'MonitoringLocationLongitude','ActivityStartDate','ResultValue','ResultUnit'),
-                       top=1000)
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "DOI, DatasetName, MonitoringLocationName, MonitoringLocationLatitude",
+    `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH'",
+    `$top` = "1000"
+  )
+Example07 = records(qs)
 
 # Now, only pull data before 2015 
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "DOI, DatasetName, MonitoringLocationName, MonitoringLocationLatitude",
+    `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'pH' and ActivityStartYear lt '2015'",
+    `$top` = "1000"
+  )
+Example08 = records(qs)
 
-Example08 = ds_records(api_token=key,
-                       filter = c("RegionId='hub.atlantic'","CharacteristicName='pH","ActivityStartYear<2015"),
-                       select = c('DOI','DatasetName','MonitoringLocationName','MonitoringLocationLatitude',
-                                  'MonitoringLocationLongitude','ActivityStartDate','ResultValue','ResultUnit'),
-                       top=1000)
-
-# Try ds_observations()
-
-Example09 = ds_observations(api_token=key,
-                            select=c("ResultValue"), 
-                            filter=c("CharacteristicName = pH","ActivityStartYear>2019"),
-                            top=1000)
-
+# Try observations()
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "ResultValue",
+    `$filter` = "CharacteristicName eq 'pH' and ActivityStartYear gt '2019'",
+    `$top` = "1000"
+  )
+Example09 = observations(qs)
 # Use the count filter 
 
-Example10 = ds_observations(api_token=key,
-                            select=c("ResultValue"), 
-                            filter=c("RegionId = 'hub.atlantic'","CharacteristicName = 'Ammonia'","ActivityStartYear>2019"),
-                            count = TRUE)
+setAPIKey(YOUR_API_KEY)
+qs <- list(
+    `$select` = "ResultValue",
+    `$filter` = "RegionId eq 'hub.atlantic' and CharacteristicName eq 'Ammonia' and ActivityStartYear gt '2019'",
+    `$count` = "true"
+  )
+Example10 = observations(qs)
+```
 
+## Tests
+Dockerfile is provided to run the unit tests and the integration tests. To build the docker image for running tests and other debugging purposes you can run: 
+```Bash
+docker build -t datastreamr .
+```
+
+To run the unit tests:
+```Bash
+docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('tests/testthat/test_unit.R')"
+```
+
+To run the integration tests:
+```Bash
+docker run --rm -e DATASTREAM_API_KEY=$(cat api_key.txt) datastreamr R -e "library(testthat); test_file('tests/testthat/test_integration.R')"
 ```
