@@ -154,6 +154,10 @@ partitionRequest <- function(path, qs) {
     stop("locationStream should be a data frame")
   }
 
+  if (nrow(locationStream)==0){
+    return(locationStream)
+  }
+
   optionsArray <- list()
   for (i in 1:nrow(locationStream)) {
     location <- locationStream[i, ]
