@@ -240,7 +240,7 @@ result = observations(qs)
 
 
 ## Records
-**Get select fields from a datasets**
+**Get select fields from a dataset**
 
 ```R
 qs <- list(
