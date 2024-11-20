@@ -21,6 +21,11 @@ set_default_options <- function() {
   set_default_options()
 }
 
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage(pkgname," version ", packageVersion(pkgname))
+  packageStartupMessage("Note: This version introduces breaking changes from previous versions. Please see readme documentation: 'https://github.com/datastreamapp/datastreamr'.")
+}
+
 #' Set API Key
 #'
 #' \code{setAPIKey} Sets the API key for authentication.

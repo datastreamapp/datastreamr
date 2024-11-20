@@ -1,6 +1,6 @@
 Package: datastreamr
 Title: An R Wrapper for DataStream's Public API
-Version: 1.5.0
+Version: 2.0.0
 Date: 2024-06-26
 Authors@R: c(
         person("Kiril", "Kirov", email = "kiril.kirov@strato.earth", role = c("aut")),
