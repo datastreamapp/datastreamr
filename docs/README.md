@@ -7,10 +7,10 @@
 </h1>
 
 
-This tool is useful for those who want to extract large volumes of data from <a href="https://datastream.org">DataStream</a>. This R package allows users to call to the  DataStream  <a href="https://github.com/datastreamapp/api-docs">Public API</a> using built-in R functions and specific search queries. The package includes several functions which accept a selection of filtering queries and then return a dataframe with the desired data from DataStream. 
+This tool is useful for those who want to extract large volumes of data from <a href="https://datastream.org">DataStream</a>. This R package allows users to call  DataStream's  <a href="https://github.com/datastreamapp/api-docs">Public API</a> using R functions and specific search queries. The package includes several functions which accept a selection of filtering queries and returns a dataframe with the desired data from DataStream. 
 
 **You might use this tool, for example, if you:**
-*  Want to download all available DataStream pH data in Ontario
+*  Cross-dataset downloads (i.e., to download all available pH data in Ontario on DataStream)
 *  Want to count how many sites in New Brunswick have cesium data on DataStream
 
 ##
@@ -29,7 +29,7 @@ To install the most recent version in R:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("datastreamapp/datastreamr")
+remotes::install_github("datastreamapp/datastreamr")
 ```
 
 ## Attribution/Citation
@@ -51,7 +51,26 @@ The API returns the URL for a dataset's licence, these should be mapped to the f
   - URL: Dataset-dependent, entered by data provider (eg. https://open.canada.ca/en/open-government-licence-canada) 
 
 ## The Functions 
-The following functions are used to call to the DataStream API and pull desired information.  
+The following functions are used to call DataStream's API and pull desired information.  
+
+### setAPIKey():  
+**Description** 
+ <br/>
+By default the environment variable "DATASTREAM_API_KEY" is used for setting the API key. Click  <a href="https://docs.google.com/forms/d/1SjPVeblz2QFaghpiBZPZKOVNKXgw5UMnAtJLJS1tQYI">here</a> to request an api token <br/>
+ <br/>
+  <br/>
+**Usage**
+```R
+library(datastreamr)
+# To set API Key for the current session, use:
+setAPIKey('xxxxxxxxxx')
+
+# Preferably, save the API key as an environmental variable
+usethis::edit_r_environ()
+# add DATASTREAM_API_KEY="xxxxxxxxxx" to the file, save, and restart R, then there is no need to include `setAPIKey()` within the script.
+
+# Saving the API key as an environmental variable means it will remain private but be available when needed
+```
 
 ### metadata():  
 **Description** 
@@ -119,7 +138,7 @@ Pulls data in a condensed format that must be joined with other endpoints to cre
   <br/>
   **Usage**
 * This function will be quicker than `records`, but if location specifics are needed, needs to be paired with `locations()` <br/>
-* Use this function either if you are uninterested in specific location coordinates, or in combination with `locations()` when you plan to pull millions of rows of data <br/>
+* Use this function if you are uninterested in specific location coordinates, or in combination with `locations()` when you plan to pull >200,000 of rows of data <br/>
 
 ```R
 observations( 
@@ -134,10 +153,7 @@ observations(
 
 ## Function Inputs 
 All of the functions above accept query parameters. The ones supported are:  
-##
-- **api_token:** *A character string containing your unique API key* <br/>
 
-  - Click  <a href="https://docs.google.com/forms/d/1SjPVeblz2QFaghpiBZPZKOVNKXgw5UMnAtJLJS1tQYI">here</a> to request an api token <br/>
 ##
 - **select:** *A list of allowable columns to return* <br/>
 
@@ -195,13 +211,6 @@ $`\color{green}{\text{Note:}}`$ When using the `filter` field, a useful resource
 * `ActivityMediaName`
 * `CharacteristicName`
 
-  ##
-
-## Authentication
-By default the environment variable "DATASTREAM_API_KEY" is used for setting the API key. The API key can also be set by:
-```R
-setAPIKey('xxxxxxxxxx') 
-```
 
 ## Full examples
 
@@ -209,6 +218,8 @@ setAPIKey('xxxxxxxxxx')
 
 **Get Locations from a dataset**
 ```R
+setAPIKey('xxxxxxxxxx')
+
 qs <- list(
     `$select` = "Id,DOI,Name,Latitude,Longitude",
     `$filter` = "DOI eq '10.25976/xxxx-xx00'",
