@@ -83,7 +83,7 @@ fetchData <- function(fetchOptions) {
       result <- c(result, cntnt$value)
     } else {
       # Handle count scenario
-      return(tibble::tibble(count = as.integer(cntnt$value)))
+      result <- c(result, list(value=list(count=as.integer(cntnt$value))))
     }
 
     next_link <- cntnt$`@odata.nextLink`
@@ -120,6 +120,8 @@ fetchData <- function(fetchOptions) {
 
   # Bind the list of records into a data frame
   result_df <- dplyr::bind_rows(converted_data)
+  if (ncol(result_df)==1 & all(colnames(result_df)=="count")) result_df <- tibble::tibble(count=sum(result_df[,1])) # Handle count scenario
+
   return(result_df)
 }
 
