@@ -22,7 +22,7 @@ set_default_options <- function() {
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(pkgname," version ", packageVersion(pkgname))
+  packageStartupMessage(pkgname," version ", utils::packageVersion(pkgname))
   packageStartupMessage("Note: This version introduces breaking changes from previous versions. Please see readme documentation: 'https://github.com/datastreamapp/datastreamr'.")
 }
 
