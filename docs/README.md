@@ -28,7 +28,7 @@ To have full API permissions, users must request an API token which is required 
 To install the most recent version in R:
 
 ```R
-# install.packages("devtools")
+# install.packages("remotes")
 remotes::install_github("datastreamapp/datastreamr")
 ```
 
